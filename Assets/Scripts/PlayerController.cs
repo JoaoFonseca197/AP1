@@ -19,9 +19,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonUp("Fire1"))
         {
+            
             Ray mouseInWorldPOs =_camera.ScreenPointToRay(Input.mousePosition);
+
             if (Physics.Raycast(mouseInWorldPOs, out RaycastHit hit))
-                _navAgent.destination = hit.point;
+                if(hit.transform.gameObject.layer == 7)
+                    _navAgent.SetDestination(hit.point);
         }
             
     }
