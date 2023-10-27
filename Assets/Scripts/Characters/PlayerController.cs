@@ -62,6 +62,7 @@ public class PlayerController: MonoBehaviour
                     //The player character moves and the Mason character follows
                     else
                     {
+                        _cineCamera.Follow = _player.transform;
                         _mason.IsFollowing = true;
                         _player.Move(hit.point);
                     }
@@ -70,6 +71,7 @@ public class PlayerController: MonoBehaviour
 
 
         }
+        //
         //Test the swaping camera
         //Works better when _isInPuzzleRoom is true
         if (Input.GetKeyDown(KeyCode.Space))
