@@ -4,10 +4,10 @@ using UnityEngine.AI;
 /// <summary>
 /// Class responsible for the Mason character
 /// </summary>
-public class MasonCharacter : MonoBehaviour , ICharacter
+public class MasonCharacter : MonoBehaviour 
 {
     [SerializeField] NavMeshAgent _navMeshAgent;
-    [SerializeField] PlayerCharacter _playerController;
+    [SerializeField] PlayerCharacter _playerCharacter;
 
     //Property that tells if this character is following or not
     public bool IsFollowing {get;set;}
@@ -18,7 +18,7 @@ public class MasonCharacter : MonoBehaviour , ICharacter
     {
         //If true follows the player character
         if (IsFollowing)
-            _navMeshAgent.SetDestination(_playerController.gameObject.transform.position);
+            _navMeshAgent.SetDestination(_playerCharacter.gameObject.transform.position);
     }
 
     /// <summary>

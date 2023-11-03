@@ -4,7 +4,7 @@ using UnityEngine.AI;
 /// <summary>
 /// Class responsible for the player character
 /// </summary>
-public class PlayerCharacter : MonoBehaviour, ICharacter
+public class PlayerCharacter : MonoBehaviour
 {
     [SerializeField] NavMeshAgent _navMeshAgent;
 

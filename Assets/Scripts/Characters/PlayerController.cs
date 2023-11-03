@@ -11,6 +11,8 @@ public class PlayerController: MonoBehaviour
     [SerializeField] protected CinemachineFreeLook _cineCamera;
     [SerializeField] protected PlayerCharacter _player;
     [SerializeField] protected MasonCharacter _mason;
+    [SerializeField] protected LayerMask _groundMask;
+
 
     //Can this be used ?
     //private ICharacter              _character;
@@ -36,36 +38,39 @@ public class PlayerController: MonoBehaviour
             //Shoots a ray from the camera with the direction of the mouse position
             Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
             //Checks if hits something
-            if (Physics.Raycast(mouseInput, out RaycastHit hit))
+            if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _groundMask))
+            {
                 //Checks if is walkable ground
                 //NOTE: May change to navMesh Ray
-                if (hit.transform.gameObject.layer == 7)
-                    //Checks if the characters are in the puzzle room
-                    if (_isInPuzzleRoom)
+                //if (hit.transform.gameObject.layer == 7)
+                //Checks if the characters are in the puzzle room
+                Debug.Log($"Normal={hit.normal}");
+                if (_isInPuzzleRoom)
+                {
+                    //Character Mason stops following player character
+                    _mason.IsFollowing = false;
+                    //Checks which character is the player controlling
+                    //If true the player is controlling the player character
+                    if (_controllingPlayerCharacter)
                     {
-                        //Character Mason stops following player character
-                        _mason.IsFollowing = false;
-                        //Checks which character is the player controlling
-                        //If true the player is controlling the player character
-                        if (_controllingPlayerCharacter)
-                        {
-                            //Moves player character
-                            _player.Move(hit.point);
-                        }
-                        else
-                        {
-                            //Moves Mason character
-                            _mason.Move(hit.point);
-                        }
-                    }
-                    //If is not in the puzzle room 
-                    //The player character moves and the Mason character follows
-                    else
-                    {
-                        _cineCamera.Follow = _player.transform;
-                        _mason.IsFollowing = true;
+                        //Moves player character
                         _player.Move(hit.point);
                     }
+                    else
+                    {
+                        //Moves Mason character
+                        _mason.Move(hit.point);
+                    }
+                }
+                //If is not in the puzzle room 
+                //The player character moves and the Mason character follows
+                else
+                {
+                    _cineCamera.Follow = _player.transform;
+                    _mason.IsFollowing = true;
+                    _player.Move(hit.point);
+                }
+            }
 
 
 
