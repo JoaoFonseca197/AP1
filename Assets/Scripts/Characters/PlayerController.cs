@@ -80,7 +80,19 @@ public class PlayerController: MonoBehaviour
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
-                hit.transform.gameObject.GetComponent<IInteractable>().Interact();
+                 if(hit.normal.x == 0)
+                    _player.Move(
+                        new Vector3(hit.transform.position.x,0, hit.transform.position.z - hit.transform.localScale.z + hit.normal.z),
+                        hit.transform.position,
+                        hit.transform.gameObject.GetComponent<IInteractable>());
+                else
+                    _player.Move(
+                        new Vector3(hit.transform.position.x - hit.transform.localScale.x + hit.normal.x, 0, hit.transform.position.z ),
+                        hit.transform.position,
+                        hit.transform.gameObject.GetComponent<IInteractable>());
+               
+                
+                //hit.transform.gameObject.GetComponent<IInteractable>().Interact();
             }
         }
         //
