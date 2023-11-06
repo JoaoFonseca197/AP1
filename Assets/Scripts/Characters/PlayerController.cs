@@ -7,11 +7,12 @@ using UnityEngine;
 public class PlayerController: MonoBehaviour 
 {
 
-    [SerializeField] protected Camera _camera;
-    [SerializeField] protected CinemachineFreeLook _cineCamera;
-    [SerializeField] protected PlayerCharacter _player;
-    [SerializeField] protected MasonCharacter _mason;
-    [SerializeField] protected LayerMask _groundMask;
+    [SerializeField] protected  Camera              _camera;
+    [SerializeField] protected  CinemachineFreeLook _cineCamera;
+    [SerializeField] protected  PlayerCharacter     _player;
+    [SerializeField] protected  MasonCharacter      _mason;
+    [SerializeField] protected  LayerMask           _groundMask;
+    [SerializeField] private    LayerMask           _interactableMask;
 
 
     //Can this be used ?
@@ -71,10 +72,16 @@ public class PlayerController: MonoBehaviour
                     _player.Move(hit.point);
                 }
             }
-
-
-
-
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            //Shoots a ray from the camera with the direction of the mouse position
+            Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
+            //Checks if hits something
+            if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
+            {
+                hit.transform.gameObject.GetComponent<IInteractable>().Interact();
+            }
         }
         //
         //Test the swaping camera

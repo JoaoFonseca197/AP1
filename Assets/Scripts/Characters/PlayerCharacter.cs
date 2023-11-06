@@ -14,6 +14,7 @@ public class PlayerCharacter : MonoBehaviour
     /// <param name="destiny">Place where the character will go</param>
     public void Move(Vector3 destiny)
     { 
+                
                 _navMeshAgent.SetDestination(destiny);
     }
 }
