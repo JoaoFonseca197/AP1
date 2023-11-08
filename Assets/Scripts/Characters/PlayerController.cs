@@ -67,7 +67,7 @@ public class PlayerController: MonoBehaviour
                     if (_controllingPlayerCharacter)
                     {
                         //Moves player character
-                        _player.Move(hit.point, Vector3.zero);
+                        _player.Move(hit.point);
                     }
                     else
                     {

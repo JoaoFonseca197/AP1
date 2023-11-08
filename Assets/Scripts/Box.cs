@@ -8,6 +8,7 @@ public class Box : MonoBehaviour, IInteractable
 
     private NavMeshObstacle _navMeshObstacle;
     private float _initialYposition;
+    private 
     void Awake()
     {
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
