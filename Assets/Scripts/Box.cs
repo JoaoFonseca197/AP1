@@ -1,37 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations;
-using UnityEngine.UIElements;
 
 public class Box : MonoBehaviour, IInteractable
 {
-    [SerializeField] GameObject _player;
+    [SerializeField] PlayerCharacter _player;
     [SerializeField] Transform   _pivot;
-    CharacterController _characterController;
-    // Start is called before the first frame update
-    void Start()
+
+    private NavMeshObstacle _navMeshObstacle;
+    private float _initialYposition;
+    void Awake()
     {
-        
+        _navMeshObstacle = GetComponent<NavMeshObstacle>();
+        _initialYposition = transform.position.y;
     }
 
-    // Update is called once per frame
-    void Update()
+    void IInteractable.Interact(bool isInteracting)
     {
-        
-    }
+        if(isInteracting)
+        {
+            //Fix position when grabbing
+            transform.SetParent(_player.transform, true);
+            transform.SetLocalPositionAndRotation(new Vector3(0, 0.5f, transform.localScale.z + 1f), Quaternion.identity);
+            _navMeshObstacle.enabled = false;
+            _player.NavMeshAgent.speed = 6;
+            _player.NavMeshAgent.angularSpeed = 0;
 
-    void IInteractable.Interact()
-    {
-        //Fix position when grabbing
-        transform.SetParent(_player.transform,true);
-        transform.SetLocalPositionAndRotation(new Vector3 (0,0.5f,  transform.localScale.z + 1f), Quaternion.identity);
-        //transform.rotation = Quaternion.EulerRotation(Vector3.zero);
-        
-        //navMeshAgent.angularSpeed = 0;
-        
-            
+        }
+        else
+        {
+            transform.parent = null;
+            transform.SetLocalPositionAndRotation(new Vector3(transform.position.x,_initialYposition, transform.position.z), Quaternion.identity);
+            _navMeshObstacle.enabled = true;
+            _player.NavMeshAgent.speed = 10;
+            _player.NavMeshAgent.angularSpeed = 360;
+        }   
     }
 
     

@@ -18,11 +18,23 @@ public class PlayerController: MonoBehaviour
     //Can this be used ?
     //private ICharacter              _character;
 
-    private bool _controllingPlayerCharacter;
+    private bool            _controllingPlayerCharacter;
+    private IInteractable   _interactable;
+    private IInteractable   _objectToInteract;
 
     //Serialized for best test purposes 
     //Remove after
     [SerializeField] private bool _isInPuzzleRoom;
+
+    private void OnEnable()
+    {
+        _player.ReachedDestiny += Interact;
+    }
+
+    private void OnDisable()
+    {
+        _player.ReachedDestiny -= Interact;
+    }
 
     private void Awake()
     {
@@ -33,6 +45,8 @@ public class PlayerController: MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
+        Debug.Log(_interactable);
         //Gets input when the player presses Left Mouse Button
         if (Input.GetButtonDown("Fire1"))
         {
@@ -41,11 +55,9 @@ public class PlayerController: MonoBehaviour
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _groundMask))
             {
-                //Checks if is walkable ground
                 //NOTE: May change to navMesh Ray
-                //if (hit.transform.gameObject.layer == 7)
                 //Checks if the characters are in the puzzle room
-                Debug.Log($"Normal={hit.normal}");
+                
                 if (_isInPuzzleRoom)
                 {
                     //Character Mason stops following player character
@@ -55,7 +67,7 @@ public class PlayerController: MonoBehaviour
                     if (_controllingPlayerCharacter)
                     {
                         //Moves player character
-                        _player.Move(hit.point);
+                        _player.Move(hit.point, Vector3.zero);
                     }
                     else
                     {
@@ -69,9 +81,10 @@ public class PlayerController: MonoBehaviour
                 {
                     _cineCamera.Follow = _player.transform;
                     _mason.IsFollowing = true;
-                    _player.Move(hit.point);
+                    _player.Move(hit.point,Vector3.zero);
                 }
             }
+
         }
         if (Input.GetButtonDown("Fire2"))
         {
@@ -80,19 +93,23 @@ public class PlayerController: MonoBehaviour
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
-                 if(hit.normal.x == 0)
-                    _player.Move(
-                        new Vector3(hit.transform.position.x,0, hit.transform.position.z - hit.transform.localScale.z + hit.normal.z),
-                        hit.transform.position,
-                        hit.transform.gameObject.GetComponent<IInteractable>());
+                if (_interactable != null)
+                {
+                    StopInteracting();
+                    _interactable = null;
+                }
                 else
-                    _player.Move(
-                        new Vector3(hit.transform.position.x - hit.transform.localScale.x + hit.normal.x, 0, hit.transform.position.z ),
-                        hit.transform.position,
-                        hit.transform.gameObject.GetComponent<IInteractable>());
-               
-                
-                //hit.transform.gameObject.GetComponent<IInteractable>().Interact();
+                {
+                    //Debug.Log($"Normal={hit.normal}");
+                    if (hit.normal.y == 0)
+                    {
+                        _player.Move(
+                            new Vector3(hit.transform.position.x, 0, hit.transform.position.z - hit.transform.localScale.z + hit.normal.z),
+                            hit.transform.position);
+                        _objectToInteract = hit.collider.GetComponent<IInteractable>();
+
+                    }
+                }
             }
         }
         //
@@ -116,6 +133,18 @@ public class PlayerController: MonoBehaviour
                 _cineCamera.Follow = _player.transform;
             }
         }
+    }
+
+    private void StopInteracting()
+    {
+        _interactable.Interact(false);
+    }
+
+    private void Interact()
+    {
+        _interactable = _objectToInteract;
+        _objectToInteract = null;
+        _interactable?.Interact(true); 
     }
 
 }
