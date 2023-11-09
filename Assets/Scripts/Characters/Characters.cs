@@ -2,13 +2,16 @@
 
 // Ignore Spelling: Nav
 
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.CullingGroup;
 
 public class Characters : MonoBehaviour
 {
     [SerializeField] protected NavMeshAgent _navMeshAgent;
 
+    public Action ReachedDestiny;
 
     protected Vector3 _lookAt;
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
@@ -22,6 +25,8 @@ public class Characters : MonoBehaviour
         _navMeshAgent.SetDestination(destiny);
     }
 
+    
+
     /// <summary>
     /// Called when a character moves and needs
     /// to look at one direction
@@ -32,5 +37,13 @@ public class Characters : MonoBehaviour
     {
         _navMeshAgent.SetDestination(destiny);
         _lookAt = lookAt;
+        
     }
+
+
+    //protected virtual void CharacterChanged()
+    //{
+    //    // Safely raise the event for all subscribers
+    //    ReachedDestiny?.Invoke(this);
+    //}
 }

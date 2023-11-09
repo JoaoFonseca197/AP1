@@ -6,5 +6,10 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void Interact(bool isInteracting);
+
+
+    public Characters CurrentCharacter { get; }
+    void Interact(Characters character);
+
+    void StopInteract();
 }

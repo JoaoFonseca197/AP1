@@ -1,5 +1,7 @@
 using Cinemachine;
+using System;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Class responsible for getting and interpret the inputs from the player
@@ -21,6 +23,7 @@ public class PlayerController: MonoBehaviour
     private bool            _controllingPlayerCharacter;
     private IInteractable   _interactable;
     private IInteractable   _objectToInteract;
+    private Characters      _currentCharacter;
 
     //Serialized for best test purposes 
     //Remove after
@@ -29,15 +32,18 @@ public class PlayerController: MonoBehaviour
     private void OnEnable()
     {
         _player.ReachedDestiny += Interact;
+        _mason.ReachedDestiny += Interact;
     }
 
     private void OnDisable()
     {
+        _mason.ReachedDestiny -= Interact;
         _player.ReachedDestiny -= Interact;
     }
 
     private void Awake()
     {
+        _currentCharacter = _player;
         _controllingPlayerCharacter = true;
         _isInPuzzleRoom = true;
     }
@@ -67,12 +73,14 @@ public class PlayerController: MonoBehaviour
                     if (_controllingPlayerCharacter)
                     {
                         //Moves player character
-                        _player.Move(hit.point);
+                        _currentCharacter.Move(hit.point);
+                        //_currentCharacter = _player;
                     }
                     else
                     {
                         //Moves Mason character
-                        _mason.Move(hit.point);
+                        _currentCharacter.Move(hit.point);
+                        //_currentCharacter = _mason;
                     }
                 }
                 //If is not in the puzzle room 
@@ -82,6 +90,7 @@ public class PlayerController: MonoBehaviour
                     _cineCamera.Follow = _player.transform;
                     _mason.IsFollowing = true;
                     _player.Move(hit.point,Vector3.zero);
+                    _currentCharacter = _player;
                 }
             }
 
@@ -93,9 +102,10 @@ public class PlayerController: MonoBehaviour
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
-                if (_interactable != null)
+                //Stops interacting with the object
+                if (_interactable != null && _currentCharacter == _interactable.CurrentCharacter)
                 {
-                    StopInteracting();
+                    _interactable.StopInteract();
                     _interactable = null;
                 }
                 else
@@ -103,7 +113,7 @@ public class PlayerController: MonoBehaviour
                     //Debug.Log($"Normal={hit.normal}");
                     if (hit.normal.y == 0)
                     {
-                        _player.Move(
+                        _currentCharacter.Move(
                             new Vector3(hit.transform.position.x, 0, hit.transform.position.z - hit.transform.localScale.z + hit.normal.z),
                             hit.transform.position);
                         _objectToInteract = hit.collider.GetComponent<IInteractable>();
@@ -118,33 +128,28 @@ public class PlayerController: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //Checks which character is player controlling
-            if(_controllingPlayerCharacter)
+            if(_currentCharacter == _player)
             {
                 //Swaps the controlling character to Mason
-                _controllingPlayerCharacter = false;
+                _currentCharacter = _mason;
                 //Sets the camera to track the Mason character
                 _cineCamera.Follow = _mason.transform;
             }
             else
             {
                 //Swaps the controlling character to player
-                _controllingPlayerCharacter = true;
+                _currentCharacter = _player;
                 //Sets the camera to track the player character
                 _cineCamera.Follow = _player.transform;
             }
         }
     }
 
-    private void StopInteracting()
-    {
-        _interactable.Interact(false);
-    }
-
     private void Interact()
     {
         _interactable = _objectToInteract;
         _objectToInteract = null;
-        _interactable?.Interact(true); 
+        _interactable?.Interact(_currentCharacter); 
     }
 
 }

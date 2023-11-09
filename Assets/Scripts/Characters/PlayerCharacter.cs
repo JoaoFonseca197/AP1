@@ -10,17 +10,17 @@ using UnityEngine.AI;
 /// Class responsible for the player character
 /// </summary>
 public class PlayerCharacter : Characters
-{ 
-
-    public Action ReachedDestiny;
+{
 
     private void FixedUpdate()
     {
         if (_navMeshAgent.remainingDistance <= 0 + _navMeshAgent.stoppingDistance && _lookAt != Vector3.zero)
         {
-            _navMeshAgent.transform.LookAt(new Vector3(_lookAt.x,_lookAt.y,_lookAt.z));
+            _navMeshAgent.transform.LookAt(new Vector3(_lookAt.x, _lookAt.y, _lookAt.z));
             _lookAt = Vector3.zero;
-            ReachedDestiny();
+            ReachedDestiny?.Invoke();
         }
     }
+
+
 }
