@@ -110,7 +110,6 @@ public class PlayerController: MonoBehaviour
                 }
                 else
                 {
-                    //Debug.Log($"Normal={hit.normal}");
                     if (hit.normal.y == 0)
                     {
                         _currentCharacter.Move(

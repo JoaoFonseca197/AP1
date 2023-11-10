@@ -14,7 +14,7 @@ public class Lever : MonoBehaviour, IInteractable
     }
     void IInteractable.Interact(Characters character)
     {
-
+        _animator.Play("Pull_Down");
     }
 
     private void ObjectActivate()
