@@ -89,7 +89,7 @@ public class PlayerController: MonoBehaviour
                 {
                     _cineCamera.Follow = _player.transform;
                     _mason.IsFollowing = true;
-                    _player.Move(hit.point,Vector3.zero);
+                    _player.Move(hit.point);
                     _currentCharacter = _player;
                 }
             }
@@ -112,11 +112,9 @@ public class PlayerController: MonoBehaviour
                 {
                     if (hit.normal.y == 0)
                     {
-                        _currentCharacter.Move(
-                            new Vector3(hit.transform.position.x, 0, hit.transform.position.z - hit.transform.localScale.z + hit.normal.z),
-                            hit.transform.position);
+                        _currentCharacter.Move(hit.transform.position+hit.normal,hit.transform.position);
                         _objectToInteract = hit.collider.GetComponent<IInteractable>();
-
+                        
                     }
                 }
             }

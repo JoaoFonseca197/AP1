@@ -23,21 +23,15 @@ public class Box : MonoBehaviour, IInteractable
         if(_currentCharacter == null)
         {
             _currentCharacter = character;
-            //Fix position when grabbing
             transform.SetParent(character.transform, true);
             transform.SetLocalPositionAndRotation(new Vector3(0, 0.5f, transform.localScale.z + 1f), Quaternion.identity);
             _navMeshObstacle.enabled = false;
             _currentCharacter.NavMeshAgent.speed = 6;
             _currentCharacter.NavMeshAgent.angularSpeed = 0;
-        }
-        //else
-        //{
-        //    transform.parent = null;
-        //    transform.SetLocalPositionAndRotation(new Vector3(transform.position.x,_initialYposition, transform.position.z), Quaternion.identity);
-        //    _navMeshObstacle.enabled = true;
-        //    character.NavMeshAgent.speed = 10;
-        //    character.NavMeshAgent.angularSpeed = 360;
-        //}   
+            //float rotationY = _currentCharacter.transform.rotation.y;
+            //rotationY = 0;
+            _currentCharacter.transform.rotation = Quaternion.identity;
+        }  
     }
 
     void IInteractable.StopInteract()

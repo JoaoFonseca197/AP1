@@ -13,7 +13,15 @@ public class Characters : MonoBehaviour
 
     public Action ReachedDestiny;
 
-    protected Vector3 _lookAt;
+    protected Vector3   _destiny;
+    protected Vector3   _lookAt;
+    protected bool      _isMoving;
+
+    //public bool IsMoving
+    //{   
+    //    get => _isInteracting;
+    //    set { _isInteracting = value; } 
+    //}
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
 
     /// <summary>
@@ -23,6 +31,7 @@ public class Characters : MonoBehaviour
     public virtual void Move(Vector3 destiny)
     {
         _navMeshAgent.SetDestination(destiny);
+        
     }
 
     
@@ -35,15 +44,10 @@ public class Characters : MonoBehaviour
     /// <param name="lookAt">Position where the character will rotate</param>
     public virtual void Move(Vector3 destiny, Vector3 lookAt)
     {
+        _destiny = destiny ;
         _navMeshAgent.SetDestination(destiny);
-        _lookAt = lookAt;
+        _isMoving = true;
         
     }
 
-
-    //protected virtual void CharacterChanged()
-    //{
-    //    // Safely raise the event for all subscribers
-    //    ReachedDestiny?.Invoke(this);
-    //}
 }

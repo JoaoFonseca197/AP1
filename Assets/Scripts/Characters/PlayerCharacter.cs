@@ -1,10 +1,5 @@
-// Ignore Spelling: interactable Nav
-
-using System;
-using System.Collections;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 /// <summary>
 /// Class responsible for the player character
@@ -14,13 +9,18 @@ public class PlayerCharacter : Characters
 
     private void FixedUpdate()
     {
-        Debug.Log(_lookAt);
-        if (_navMeshAgent.remainingDistance <= 0 + _navMeshAgent.stoppingDistance && _lookAt != Vector3.zero)
+        
+        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.5f && _isMoving)
         {
-            _navMeshAgent.transform.LookAt(new Vector3(_lookAt.x, _lookAt.y, _lookAt.z));
-            _lookAt = Vector3.zero;
+            print(_destiny);
+            _navMeshAgent.updateRotation = false;
+            _navMeshAgent.transform.LookAt(_lookAt);
+            _navMeshAgent.updateRotation = true;
             ReachedDestiny?.Invoke();
+            _isMoving = false;
         }
+        
+        
     }
 
 
