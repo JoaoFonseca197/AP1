@@ -7,26 +7,15 @@ public class Lever : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _objectToActivate;
     [SerializeField] private Animator   _animator;
     public Characters CurrentCharacter { get; }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
     void IInteractable.Interact(Characters character)
     {
         _animator.Play("Pull_Down");
+        _objectToActivate.transform.Translate(new Vector3(0, 3, 0));
+        
     }
 
-    private void ObjectActivate()
-    {
-
-    }
 
     void IInteractable.StopInteract() { }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
