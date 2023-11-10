@@ -52,7 +52,7 @@ public class PlayerController: MonoBehaviour
     private void Update()
     {
 
-        Debug.Log(_interactable);
+
         //Gets input when the player presses Left Mouse Button
         if (Input.GetButtonDown("Fire1"))
         {
