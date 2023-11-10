@@ -14,6 +14,7 @@ public class PlayerCharacter : Characters
 
     private void FixedUpdate()
     {
+        Debug.Log(_lookAt);
         if (_navMeshAgent.remainingDistance <= 0 + _navMeshAgent.stoppingDistance && _lookAt != Vector3.zero)
         {
             _navMeshAgent.transform.LookAt(new Vector3(_lookAt.x, _lookAt.y, _lookAt.z));
