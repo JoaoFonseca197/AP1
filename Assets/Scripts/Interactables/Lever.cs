@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Lever : MonoBehaviour, IInteractable
 {
-    [SerializeField] private GameObject _objectToActivate;
+    [SerializeField] private Animator   _objectanimator;
     [SerializeField] private Animator   _animator;
     public Characters CurrentCharacter { get; }
 
     void IInteractable.Interact(Characters character)
     {
-        _animator.Play("Pull_Down");
-        
+        _animator.SetBool("_IsActive", true);
+
     }
 
 
