@@ -18,23 +18,21 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.GetComponent<Box>())
-        //{
-        //    Debug.Log("Box On");
-        //    _isActive = true;
-        //}
-        Debug.Log("Box On");
+        if (other.GetComponent<Box>())
+        {
+            Debug.Log("Box On");
+            _isActive = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(_isActive) 
+        if(_isActive && other.TryGetComponent<Box>(out Box baba)) 
         {
             Debug.Log("Box off");
             _isActive = false;
         }
 
-        Debug.Log("Box off");
     }
 
 
