@@ -28,8 +28,6 @@ public class Box : MonoBehaviour, IInteractable
             _navMeshObstacle.enabled = false;
             _currentCharacter.NavMeshAgent.speed = 6;
             _currentCharacter.NavMeshAgent.angularSpeed = 0;
-            //float rotationY = _currentCharacter.transform.rotation.y;
-            //rotationY = 0;
             _currentCharacter.transform.rotation = Quaternion.identity;
         }  
     }

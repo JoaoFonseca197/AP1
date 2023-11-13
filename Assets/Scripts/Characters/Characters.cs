@@ -10,6 +10,9 @@ using static UnityEngine.CullingGroup;
 public class Characters : MonoBehaviour
 {
     [SerializeField] protected NavMeshAgent _navMeshAgent;
+    [SerializeField] protected float _maxHighDistance;
+    [SerializeField] protected float _minHighDistance;
+    [SerializeField] protected Transform _playerPivot;
 
     public Action ReachedDestiny;
 
@@ -30,7 +33,12 @@ public class Characters : MonoBehaviour
     /// <param name="destiny"></param>
     public virtual void Move(Vector3 destiny)
     {
-        _navMeshAgent.SetDestination(destiny);
+        if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance )
+        {
+            _navMeshAgent.Warp(destiny);
+        }
+        else
+            _navMeshAgent.SetDestination(destiny);
         
     }
 
