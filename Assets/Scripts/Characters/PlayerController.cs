@@ -1,5 +1,9 @@
+// Ignore Spelling: Interactable
+
 using Cinemachine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -15,19 +19,22 @@ public class PlayerController: MonoBehaviour
     [SerializeField] protected  MasonCharacter      _mason;
     [SerializeField] protected  LayerMask           _groundMask;
     [SerializeField] private    LayerMask           _interactableMask;
-
-
-    //Can this be used ?
-    //private ICharacter              _character;
-
-    private bool            _controllingPlayerCharacter;
-    private IInteractable   _interactable;
-    private IInteractable   _objectToInteract;
-    private Characters      _currentCharacter;
-
-    //Serialized for best test purposes 
-    //Remove after
     [SerializeField] private bool _isInPuzzleRoom;
+
+
+
+    private bool                _controllingPlayerCharacter;
+    private IInteractable       _currentInteractable;
+    private IInteractable       _objectToInteract;
+    private Characters          _currentCharacter;
+    private List<Renderer>      _currentOutlinedObject;
+
+    public IInteractable CurrentInteractable
+    {
+        get { return _currentInteractable; }
+        set { _currentInteractable = value; }
+    }
+    
 
     private void OnEnable()
     {
@@ -43,6 +50,7 @@ public class PlayerController: MonoBehaviour
 
     private void Awake()
     {
+        _currentOutlinedObject = new List<Renderer>();
         _currentCharacter = _player;
         _controllingPlayerCharacter = true;
         _isInPuzzleRoom = true;
@@ -51,13 +59,34 @@ public class PlayerController: MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //Shoots a ray from the camera with the direction of the mouse position
+        Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
 
+        if(_currentInteractable== null)
+        {
+            if (Physics.Raycast(mouseInput, out RaycastHit interactable, float.MaxValue, _interactableMask))
+            {
+                _currentOutlinedObject = interactable.collider.GetComponentsInChildren<Renderer>().ToList();
+                foreach (Renderer renderer in _currentOutlinedObject)
+                    renderer.materials[1].SetFloat("_Scale", 1.1f);
+            }
+            else
+            {
+                if (_currentOutlinedObject.Count != 0)
+                {
+                    foreach (Renderer renderer in _currentOutlinedObject)
+                        renderer.materials[1].SetFloat("_Scale", 0f);
+                }
+
+            }
+        }
+        
+            
 
         //Gets input when the player presses Left Mouse Button
         if (Input.GetButtonDown("Fire1"))
         {
-            //Shoots a ray from the camera with the direction of the mouse position
-            Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
+            
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _groundMask))
             {
@@ -97,16 +126,14 @@ public class PlayerController: MonoBehaviour
         }
         if (Input.GetButtonDown("Fire2"))
         {
-            //Shoots a ray from the camera with the direction of the mouse position
-            Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
                 //Stops interacting with the object
-                if (_interactable != null && _currentCharacter == _interactable.CurrentCharacter)
+                if (_currentInteractable != null && _currentCharacter == _currentInteractable.CurrentCharacter)
                 {
-                    _interactable.StopInteract();
-                    _interactable = null;
+                    _currentInteractable.StopInteract();
+                    _currentInteractable = null;
                 }
                 else
                 {
@@ -114,7 +141,6 @@ public class PlayerController: MonoBehaviour
                     {
                         _currentCharacter.Move(hit.transform.position+hit.normal,hit.transform.position);
                         _objectToInteract = hit.collider.GetComponent<IInteractable>();
-                        
                     }
                 }
             }
@@ -142,11 +168,13 @@ public class PlayerController: MonoBehaviour
         }
     }
 
+
+
     private void Interact()
     {
-        _interactable = _objectToInteract;
+        _currentInteractable = _objectToInteract;
         _objectToInteract = null;
-        _interactable?.Interact(_currentCharacter); 
+        _currentInteractable?.Interact(_currentCharacter); 
     }
 
 }

@@ -6,11 +6,13 @@ public class Lever : MonoBehaviour, IInteractable
 {
     [SerializeField] private Animator   _objectanimator;
     [SerializeField] private Animator   _animator;
+    [SerializeField] private PlayerController _playerController;
     public Characters CurrentCharacter { get; }
 
     void IInteractable.Interact(Characters character)
     {
         _animator.SetBool("_IsActive", true);
+        _playerController.CurrentInteractable = null;
 
     }
 
