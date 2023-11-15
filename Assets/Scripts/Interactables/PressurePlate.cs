@@ -20,7 +20,6 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.GetComponent<Box>())
         {
-            Debug.Log("Box On");
             _isActive = true;
         }
     }
@@ -29,7 +28,6 @@ public class PressurePlate : MonoBehaviour
     {
         if(_isActive && other.TryGetComponent<Box>(out Box baba)) 
         {
-            Debug.Log("Box off");
             _isActive = false;
         }
 
