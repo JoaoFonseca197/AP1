@@ -2361,31 +2361,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lever
       objectReference: {fileID: 0}
-    - target: {fileID: 2165896134765895213, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2165896134765895213, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483525112498990829, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483525112498990829, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4483525112498990829, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77bb2dd1a60cb8f45861b993e2e4c5ce, type: 2}
     - target: {fileID: 5760507226575033523, guid: ea70875604b30354d92cce53c91765f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2436,26 +2411,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6222733228680192864, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6222733228680192864, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77bb2dd1a60cb8f45861b993e2e4c5ce, type: 2}
-    - target: {fileID: 6307795602804883706, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6307795602804883706, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77bb2dd1a60cb8f45861b993e2e4c5ce, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
