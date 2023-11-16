@@ -2850,6 +2850,9 @@ MonoBehaviour:
   _maxLookRange: 5
   _patrollingPoints:
   - {fileID: 84647910}
+  - {fileID: 683577287}
+  - {fileID: 514646984}
+  - {fileID: 410308093}
   _navMeshAgent: {fileID: 7675511843888754730}
   _player: {fileID: 326280744}
   _mason: {fileID: 1892886012}

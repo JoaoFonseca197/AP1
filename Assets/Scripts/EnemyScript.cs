@@ -61,8 +61,8 @@ public class EnemyScript : MonoBehaviour
         _navMeshAgent.SetDestination(_patrollingPoints[_currentPatrollingPoint].position);
         //variable made to ignore y axis
         Vector3 xzPosition = new Vector3(_patrollingPoints[_currentPatrollingPoint].position.x,
-            _navMeshAgent.destination.y, _patrollingPoints[_currentPatrollingPoint].position.z);
-        if (_navMeshAgent.destination == xzPosition)
+            _navMeshAgent.gameObject.transform.position.y, _patrollingPoints[_currentPatrollingPoint].position.z);
+        if (_navMeshAgent.gameObject.transform.position == xzPosition)
         {
            
             _currentPatrollingPoint++;
