@@ -49,10 +49,6 @@ public class EnemyScript : MonoBehaviour
         // Get actions from state machine and invoke them
         Action actionToDo = _fms.Update();
         actionToDo?.Invoke();
-
-
-        print(_navMeshAgent.destination);
-        //Updates the cooldown of shooting
     }
 
 

@@ -19,11 +19,13 @@ public class MasonCharacter : Characters
         if (IsFollowing)
             _navMeshAgent.SetDestination(_playerCharacter.gameObject.transform.position);
 
-        if (_navMeshAgent.remainingDistance <= 0 + _navMeshAgent.stoppingDistance && _lookAt != Vector3.zero)
+        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.5f && _isMoving)
         {
-            _navMeshAgent.transform.LookAt(new Vector3(_lookAt.x, _lookAt.y, _lookAt.z));
-            _lookAt = Vector3.zero;
+            _navMeshAgent.updateRotation = false;
+            _navMeshAgent.transform.LookAt(_lookAt);
+            _navMeshAgent.updateRotation = true;
             ReachedDestiny?.Invoke();
+            _isMoving = false;
         }
     }
 

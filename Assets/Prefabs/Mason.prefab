@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5617960682935127046}
   - component: {fileID: 6374656225809297214}
   - component: {fileID: 6165813396168830357}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4975324339052396752}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MasonPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ Transform:
   m_GameObject: {fileID: 1101066157406265785}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 7577451776660243481}
   - component: {fileID: 113414394798173561}
   - component: {fileID: -2489205467548110784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mason
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573187156284119640}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: 1479372276
   m_Radius: 0.5
   m_Speed: 10
   m_Acceleration: 40
@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 7577451776660243481}
-  _maxHighDistance: 0
-  _minHighDistance: 0
-  _playerPivot: {fileID: 0}
+  _maxHighDistance: 3
+  _minHighDistance: 0.5
+  _playerPivot: {fileID: 4975324339052396752}
   _playerCharacter: {fileID: 0}
 --- !u!54 &-2489205467548110784
 Rigidbody:
@@ -233,7 +233,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -247,7 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4557714842355422388}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4004637910279804679}
   - component: {fileID: 176169449171455601}
   - component: {fileID: 1386503571614025384}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

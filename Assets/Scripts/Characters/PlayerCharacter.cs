@@ -12,7 +12,6 @@ public class PlayerCharacter : Characters
         
         if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.5f && _isMoving)
         {
-            print(_destiny);
             _navMeshAgent.updateRotation = false;
             _navMeshAgent.transform.LookAt(_lookAt);
             _navMeshAgent.updateRotation = true;

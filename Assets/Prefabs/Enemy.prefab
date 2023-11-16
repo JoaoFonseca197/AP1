@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2180748889172016814}
   - component: {fileID: 983387328384080273}
   - component: {fileID: 2497591153169541790}
+  - component: {fileID: 183179763447935168}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -59,7 +60,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54536651155129712}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1923039037
   m_Radius: 0.5
   m_Speed: 10
   m_Acceleration: 40
@@ -73,6 +74,27 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &183179763447935168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54536651155129712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50656ca22f7c9e14197a29de9a0a01bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxLookRange: 5
+  _patrollingPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _navMeshAgent: {fileID: 2497591153169541790}
+  _player: {fileID: 0}
+  _mason: {fileID: 0}
 --- !u!1 &966167704070250369
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +304,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aaf58e10cb062114ab4c15ebffaa554c, type: 2}
+  - {fileID: 2100000, guid: 798f249ff7614f945a866bc496969546, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
