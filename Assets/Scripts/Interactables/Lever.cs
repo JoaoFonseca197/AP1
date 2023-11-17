@@ -11,7 +11,8 @@ public class Lever : MonoBehaviour, IInteractable
 
     void IInteractable.Interact(Characters character)
     {
-        _animator.SetBool("_IsActive", true);
+        _animator.SetBool("IsActive", true);
+        _objectanimator.SetBool("IsActive", true);
         _playerController.CurrentInteractable = null;
 
     }
