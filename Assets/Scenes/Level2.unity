@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 222400442}
   - component: {fileID: 222400441}
   - component: {fileID: 222400440}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15, y: 1.5, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 80}
+  m_LocalScale: {x: 3, y: 5, z: 80}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1097818139}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 1097818139}
   - component: {fileID: 1097818141}
   - component: {fileID: 1097818140}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jump Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ Transform:
   m_GameObject: {fileID: 1097818138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.466, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
