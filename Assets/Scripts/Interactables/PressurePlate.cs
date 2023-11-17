@@ -8,16 +8,14 @@ public class PressurePlate : MonoBehaviour
     public Characters CurrentCharacter { get; }
 
     private bool _isActive = false;
-    private void Awake()
-    {
-        _isActive = false; 
-    }
+   
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Box>())
         {
-            _isActive = true;
+            _animator.SetBool("IsActive", true);
+            _objectToActivate.SetBool("IsActive", true);
         }
     }
 
@@ -25,7 +23,8 @@ public class PressurePlate : MonoBehaviour
     {
         if(_isActive && other.TryGetComponent<Box>(out Box baba)) 
         {
-            _isActive = false;
+            _animator.SetBool("IsActive", false);
+            _objectToActivate.SetBool("IsActive", false);
         }
 
     }
