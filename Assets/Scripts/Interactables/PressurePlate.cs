@@ -5,7 +5,6 @@ public class PressurePlate : MonoBehaviour
 {
     [SerializeField] private Animator _objectToActivate;
     [SerializeField] private Animator _animator;
-    [SerializeField] private Collider _collider;
     public Characters CurrentCharacter { get; }
 
     private bool _isActive = false;

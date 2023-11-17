@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3158378723301210922}
   - component: {fileID: 6510685681410569754}
   - component: {fileID: 6480351470529542447}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Pressure Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 2213759204016326205}
   - component: {fileID: 4047161599108928056}
   - component: {fileID: 5751026809503130435}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
