@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: -9.26165}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 1
@@ -770,7 +770,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9f6584fee4df2464fa086df04a2e5edb, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: ab80c76744cd45945bd5d707b2186789, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1205949249
 MonoBehaviour:
@@ -790,7 +790,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 439
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -801,7 +801,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 7071c1d10f217e74496dfe0170e32fd6, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 5fe2ecb408b4bf24a80ede5e2b80c417, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1205949250
 MonoBehaviour:
@@ -821,7 +821,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 439
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -832,7 +832,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: de1ece3387a199c468ccbc6482e797ef, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: ad3bdf94eda4fce4a81c1e5ac7980dc8, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1342559176
 GameObject:
