@@ -20,6 +20,7 @@ public class EnemyScript : MonoBehaviour
     {
         _currentPatrollingPoint = 0;
     }
+
     private void Start()
     {
         State patrolling = new State("Patrolling",null,
@@ -42,6 +43,12 @@ public class EnemyScript : MonoBehaviour
         _fms = _fms = new StateMachine(patrolling);
 
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Characters>())
+            other.GetComponent<Characters>().Die();
     }
 
     private void Update()
@@ -86,4 +93,6 @@ public class EnemyScript : MonoBehaviour
         else
             return _player.position;
     }
+
+    
 }

@@ -123,12 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!95 &44611524 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5669320010585336648, guid: ea70875604b30354d92cce53c91765f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 679318347}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &174861769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,8 +297,8 @@ Transform:
   m_GameObject: {fileID: 219296202}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00000047683716, z: 50}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 30}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1548756839}
@@ -710,11 +704,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 542304987502136588, guid: ea70875604b30354d92cce53c91765f9,
         type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 44611524}
-    - target: {fileID: 542304987502136588, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
       propertyPath: _objectanimator
       value: 
       objectReference: {fileID: 2060878168}
@@ -728,11 +717,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lever
       objectReference: {fileID: 0}
-    - target: {fileID: 4483525112498990829, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 58e4a05c67037264db9ff85509598c2b, type: 2}
     - target: {fileID: 5760507226575033523, guid: ea70875604b30354d92cce53c91765f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -783,16 +767,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6222733228680192864, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 799b1eaa81f46304f94a12a039056746, type: 2}
-    - target: {fileID: 6307795602804883706, guid: ea70875604b30354d92cce53c91765f9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 799b1eaa81f46304f94a12a039056746, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1987,7 +1961,7 @@ PrefabInstance:
     - target: {fileID: 6644498530306246808, guid: a36829e4832c87e41823a6ae5b9e4b94,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26.61
+      value: 15.49
       objectReference: {fileID: 0}
     - target: {fileID: 6644498530306246808, guid: a36829e4832c87e41823a6ae5b9e4b94,
         type: 3}
@@ -2023,6 +1997,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7833341948960234873, guid: a36829e4832c87e41823a6ae5b9e4b94,
+        type: 3}
+      propertyPath: _sceneName
+      value: Level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

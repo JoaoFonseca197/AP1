@@ -17,7 +17,7 @@ public class PressurePlate : MonoBehaviour
             _animator.SetBool("IsActive", true);
             _objectToActivate.SetBool("IsActive", true);
             _isActive = true;
-}
+        }
     }
 
     private void OnTriggerExit(Collider other)

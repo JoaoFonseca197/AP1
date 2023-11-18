@@ -1,7 +1,4 @@
-
-
-// Ignore Spelling: Nav
-
+using UnityEngine.SceneManagement;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,9 +10,11 @@ public class Characters : MonoBehaviour
     [SerializeField] protected float _maxHighDistance;
     [SerializeField] protected float _minHighDistance;
     [SerializeField] protected Transform _playerPivot;
+    [SerializeField] protected Animator _animator;
 
     public Action ReachedDestiny;
 
+    
     protected Vector3   _destiny;
     protected Vector3   _lookAt;
     protected bool      _isMoving;
@@ -33,8 +32,6 @@ public class Characters : MonoBehaviour
     /// <param name="destiny"></param>
     public virtual void Move(Vector3 destiny)
     {
-        print((int)Mathf.Abs(destiny.y - _playerPivot.position.y));
-        print((int)Mathf.Abs(destiny.y - _playerPivot.position.y));
         if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance )
         {
             _navMeshAgent.Warp(destiny);
@@ -44,8 +41,16 @@ public class Characters : MonoBehaviour
         
     }
 
-    
 
+    public void Die()
+    {
+        _animator.SetBool("IsDead", true);
+    }
+
+    public void LoadWhenDie()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     /// <summary>
     /// Called when a character moves and needs
     /// to look at one direction
