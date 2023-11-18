@@ -1145,11 +1145,6 @@ PrefabInstance:
       objectReference: {fileID: 1054754241}
     - target: {fileID: 183179763447935168, guid: 1e14eaee04b24e9469c71237cf8af81a,
         type: 3}
-      propertyPath: _maxLookRange
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 183179763447935168, guid: 1e14eaee04b24e9469c71237cf8af81a,
-        type: 3}
       propertyPath: _patrollingPoints.Array.data[0]
       value: 
       objectReference: {fileID: 717471476}
