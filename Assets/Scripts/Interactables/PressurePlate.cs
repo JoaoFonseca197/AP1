@@ -20,8 +20,10 @@ public class PressurePlate : MonoBehaviour
         }
     }
 
+
     private void OnTriggerExit(Collider other)
     {
+        //future change to GetComponent?
         if(_isActive && other.TryGetComponent<Box>(out Box baba)) 
         {
             _animator.SetBool("IsActive", false);

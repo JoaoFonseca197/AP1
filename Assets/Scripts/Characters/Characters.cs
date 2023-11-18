@@ -2,7 +2,6 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.CullingGroup;
 
 public class Characters : MonoBehaviour
 {
@@ -19,11 +18,7 @@ public class Characters : MonoBehaviour
     protected Vector3   _lookAt;
     protected bool      _isMoving;
 
-    //public bool IsMoving
-    //{   
-    //    get => _isInteracting;
-    //    set { _isInteracting = value; } 
-    //}
+    
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
 
     /// <summary>
@@ -41,12 +36,17 @@ public class Characters : MonoBehaviour
         
     }
 
-
+    /// <summary>
+    /// Plays the animation of dying
+    /// </summary>
     public void Die()
     {
         _animator.SetBool("IsDead", true);
     }
-
+    /// <summary>
+    /// Called by the animation event when the animation ends
+    /// Reloads current scene
+    /// </summary>
     public void LoadWhenDie()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

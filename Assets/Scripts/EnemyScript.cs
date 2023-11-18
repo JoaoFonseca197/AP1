@@ -58,7 +58,10 @@ public class EnemyScript : MonoBehaviour
         actionToDo?.Invoke();
     }
 
-
+    /// <summary>
+    /// Character will go point to point through all
+    /// point in the _patrollingPoints array
+    /// </summary>
     private void Patrolling()
     {
         _navMeshAgent.SetDestination(_patrollingPoints[_currentPatrollingPoint].position);
@@ -77,12 +80,19 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gos after the closest character
+    /// </summary>
     private void Chase()
     {
         _characterToChase = ChekForClosestCharacter();
         _navMeshAgent.SetDestination(_characterToChase);
     }
 
+    /// <summary>
+    /// Sees whats is the closest character
+    /// </summary>
+    /// <returns>The position of the closest character</returns>
     private Vector3 ChekForClosestCharacter()
     {
         float enemyToPlayer = (_player.position - transform.position).magnitude;
