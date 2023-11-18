@@ -33,6 +33,8 @@ public class Characters : MonoBehaviour
     /// <param name="destiny"></param>
     public virtual void Move(Vector3 destiny)
     {
+        print((int)Mathf.Abs(destiny.y - _playerPivot.position.y));
+        print((int)Mathf.Abs(destiny.y - _playerPivot.position.y));
         if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance )
         {
             _navMeshAgent.Warp(destiny);
