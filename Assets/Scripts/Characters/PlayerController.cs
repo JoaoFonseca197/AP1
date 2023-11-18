@@ -54,6 +54,7 @@ public class PlayerController: MonoBehaviour
         _currentCharacter = _player;
         _controllingPlayerCharacter = true;
         _isInPuzzleRoom = true;
+        _cineCamera.Follow = _player.transform;
     }
 
     // Update is called once per frame
