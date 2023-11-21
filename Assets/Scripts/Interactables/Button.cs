@@ -14,11 +14,9 @@ public class Button : MonoBehaviour, IInteractable
 
     public void Interact(Characters character)
     {
-        _currentCharacter = character;
         _animator.SetBool("IsActive", true);
         _objectanimator.SetBool("IsActive", true);
 
-        _currentCharacter.Interactable = this;
 
         Invoke("StopInteract", _timeToActivateAgain);
     }
@@ -28,6 +26,5 @@ public class Button : MonoBehaviour, IInteractable
     {
         _animator.SetBool("IsActive", false);
         _objectanimator.SetBool("IsActive", false);
-        _currentCharacter.Interactable = null;
     }
 }
