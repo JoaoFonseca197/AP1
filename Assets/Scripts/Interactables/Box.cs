@@ -17,7 +17,7 @@ public class Box : MonoBehaviour, IInteractable
         _initialYposition = transform.position.y;
     }
 
-    void IInteractable.Interact(Characters character)
+    public void Interact(Characters character)
     {
         
         if(_currentCharacter == null)
@@ -33,7 +33,7 @@ public class Box : MonoBehaviour, IInteractable
         }  
     }
 
-    void IInteractable.StopInteract()
+    public void StopInteract()
     {
 
         transform.parent = null;

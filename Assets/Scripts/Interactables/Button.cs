@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
-public class Switch : MonoBehaviour, IInteractable
+public class Button : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Animator _objectanimator;
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator   _objectanimator;
+    [SerializeField] private Animator   _animator;
+    [SerializeField] private float      _timeToActivateAgain;
 
     private Characters _currentCharacter;
 
@@ -19,10 +19,12 @@ public class Switch : MonoBehaviour, IInteractable
         _objectanimator.SetBool("IsActive", true);
 
         _currentCharacter.Interactable = this;
+
+        Invoke("StopInteract", _timeToActivateAgain);
     }
 
 
-    public void StopInteract() 
+    public void StopInteract()
     {
         _animator.SetBool("IsActive", false);
         _objectanimator.SetBool("IsActive", false);

@@ -13,7 +13,7 @@ public class Hold : MonoBehaviour, IInteractable
 
     public Characters CurrentCharacter => _currentCharacter;
 
-    void IInteractable.Interact(Characters character)
+    public void Interact(Characters character)
     {
         _animator.SetBool("IsActive", true);
         _objectanimator.SetBool("IsActive", true);
@@ -25,7 +25,7 @@ public class Hold : MonoBehaviour, IInteractable
     }
 
 
-    void IInteractable.StopInteract() 
+    public void StopInteract() 
     {
         _animator.SetBool("IsActive", false);
         _objectanimator.SetBool("IsActive", false);
