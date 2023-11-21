@@ -958,6 +958,11 @@ PrefabInstance:
       propertyPath: _objectanimator
       value: 
       objectReference: {fileID: 2060878168}
+    - target: {fileID: 542304987502136588, guid: ea70875604b30354d92cce53c91765f9,
+        type: 3}
+      propertyPath: _playerController
+      value: 
+      objectReference: {fileID: 1241638061}
     - target: {fileID: 957986659274051626, guid: ea70875604b30354d92cce53c91765f9,
         type: 3}
       propertyPath: m_Name
