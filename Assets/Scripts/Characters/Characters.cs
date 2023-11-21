@@ -14,11 +14,12 @@ public class Characters : MonoBehaviour
     public Action ReachedDestiny;
 
     
-    protected Vector3   _destiny;
-    protected Vector3   _lookAt;
-    protected bool      _isMoving;
+    protected Vector3       _destiny;
+    protected Vector3       _lookAt;
+    protected bool          _isMoving;
 
-    
+    public IInteractable Interactable { get; set; }
+        
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
 
     /// <summary>

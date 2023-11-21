@@ -24,6 +24,7 @@ public class PlayerController: MonoBehaviour
     private bool                _controllingPlayerCharacter;
     private IInteractable       _currentInteractable;
     private IInteractable       _objectToInteract;
+    private Characters          _characterToInteract;
     private Characters          _currentCharacter;
     private List<Renderer>      _currentOutlinedObject;
 
@@ -131,20 +132,48 @@ public class PlayerController: MonoBehaviour
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
+                IInteractable hitInteractable = hit.collider.GetComponent<IInteractable>();
+                if (_currentCharacter.Interactable == null && hitInteractable.CurrentCharacter == null)
+                {
+                    _currentCharacter.Move(hit.transform.position + hit.normal, hit.transform.position);
+                    _objectToInteract = hitInteractable;
+                    _characterToInteract = _currentCharacter;
+                }
+
+                if(_currentCharacter.Interactable == hitInteractable)
+                {
+                    _currentCharacter.Move(hit.transform.position + hit.normal, hit.transform.position);
+                    
+                }
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
                 //Stops interacting with the object
-                if (_currentInteractable != null && _currentCharacter == _currentInteractable.CurrentCharacter)
-                {
-                    _currentInteractable.StopInteract();
-                    _currentInteractable = null;
-                }
-                else
-                {
-                    if (hit.normal.y == 0)
-                    {
-                        _currentCharacter.Move(hit.transform.position+hit.normal,hit.transform.position);
-                        _objectToInteract = hit.collider.GetComponent<IInteractable>();
-                    }
-                }
+                //if (_currentInteractable != null && _currentCharacter == _currentInteractable.CurrentCharacter)
+                //{
+                //    _currentInteractable.StopInteract();
+                //    _currentInteractable = null;
+                //}
+                //else
+                //{
+                //    if (hit.normal.y == 0)
+                //    {
+                //        _currentCharacter.Move(hit.transform.position+hit.normal,hit.transform.position);
+                //        _objectToInteract = hit.collider.GetComponent<IInteractable>();
+                //    }
+                //}
             }
         }
         //
@@ -174,9 +203,19 @@ public class PlayerController: MonoBehaviour
 
     private void Interact()
     {
-        _currentInteractable = _objectToInteract;
-        _objectToInteract = null;
-        _currentInteractable?.Interact(_currentCharacter); 
+        if(_characterToInteract.Interactable == null)
+        {
+            _currentInteractable = _objectToInteract;
+            _objectToInteract = null;
+            _currentInteractable?.Interact(_characterToInteract);
+        }
+        else
+        {
+            _currentCharacter.Interactable.StopInteract();
+        }
+        //_currentInteractable = _objectToInteract;
+        //_objectToInteract = null;
+        //_currentInteractable?.Interact(_currentCharacter); 
     }
 
 }
