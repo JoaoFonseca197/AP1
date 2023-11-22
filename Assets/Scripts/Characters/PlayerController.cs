@@ -93,37 +93,9 @@ public class PlayerController: MonoBehaviour
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _groundMask))
             {
-                //NOTE: May change to navMesh Ray
-                //Checks if the characters are in the puzzle room
-                
-                if (_isInPuzzleRoom)
-                {
-                    //Character Mason stops following player character
-                    _mason.IsFollowing = false;
-                    //Checks which character is the player controlling
-                    //If true the player is controlling the player character
-                    if (_controllingPlayerCharacter)
-                    {
-                        //Moves player character
-                        _currentCharacter.Move(hit.point);
-                        //_currentCharacter = _player;
-                    }
-                    else
-                    {
-                        //Moves Mason character
-                        _currentCharacter.Move(hit.point);
-                        //_currentCharacter = _mason;
-                    }
-                }
-                //If is not in the puzzle room 
-                //The player character moves and the Mason character follows
-                else
-                {
-                    _cineCamera.Follow = _player.transform;
-                    _mason.IsFollowing = true;
-                    _player.Move(hit.point);
-                    _currentCharacter = _player;
-                }
+
+                _currentCharacter.Move(hit.transform, hit.point);
+
             }
 
         }
@@ -145,35 +117,6 @@ public class PlayerController: MonoBehaviour
                     _currentCharacter.Move(hit.transform.position + hit.normal, hit.transform.position);
                     
                 }
-
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //Stops interacting with the object
-                //if (_currentInteractable != null && _currentCharacter == _currentInteractable.CurrentCharacter)
-                //{
-                //    _currentInteractable.StopInteract();
-                //    _currentInteractable = null;
-                //}
-                //else
-                //{
-                //    if (hit.normal.y == 0)
-                //    {
-                //        _currentCharacter.Move(hit.transform.position+hit.normal,hit.transform.position);
-                //        _objectToInteract = hit.collider.GetComponent<IInteractable>();
-                //    }
-                //}
             }
         }
         //

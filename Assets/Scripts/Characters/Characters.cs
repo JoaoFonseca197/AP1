@@ -26,8 +26,9 @@ public class Characters : MonoBehaviour
     /// Called simply when the character moves
     /// </summary>
     /// <param name="destiny"></param>
-    public virtual void Move(Vector3 destiny)
+    public virtual void Move(Transform transform, Vector3 destiny)
     {
+
         if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance )
         {
             _navMeshAgent.Warp(destiny);
@@ -64,6 +65,21 @@ public class Characters : MonoBehaviour
         _navMeshAgent.SetDestination(destiny);
         _isMoving = true;
         
+    }
+
+    protected void FixedUpdate()
+    {
+        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.5f && _isMoving)
+        {
+            //Makes the rotation of the character
+            _navMeshAgent.updateRotation = false;
+            _navMeshAgent.transform.LookAt(_lookAt);
+            _navMeshAgent.updateRotation = true;
+
+            //Invokes this event to alert that his done moving
+            ReachedDestiny?.Invoke();
+            _isMoving = false;
+        }
     }
 
 }

@@ -9,32 +9,31 @@ public class MasonCharacter : Characters
     
     [SerializeField] private PlayerCharacter _playerCharacter;
 
-    //Property that tells if this character is following or not
-    public bool IsFollowing {get;set;}
 
-    private void FixedUpdate()
+    public override void Move(Transform transform, Vector3 destiny)
     {
+
+            if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y) >= _minHighDistance && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <= _maxHighDistance)
+            {
+                if (!transform.GetComponentInParent<BigBox>())
+                    _navMeshAgent.Warp(destiny);
+                else
+                {
+                    if(_playerCharacter.NavMeshAgent.CalculatePath(destiny, new NavMeshPath()))
+                    {
+                        _playerCharacter.NavMeshAgent.SetDestination(destiny);
+                    }
+
+                }
+                    
+            }
+            else
+                _navMeshAgent.SetDestination(destiny);
         
-        //If true follows the player character
-        if (IsFollowing)
-            _navMeshAgent.SetDestination(_playerCharacter.gameObject.transform.position);
-
-        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.5f && _isMoving)
-        {
-            _navMeshAgent.updateRotation = false;
-            _navMeshAgent.transform.LookAt(_lookAt);
-            _navMeshAgent.updateRotation = true;
-            ReachedDestiny?.Invoke();
-            _isMoving = false;
-        }
     }
+ 
 
-    //protected override void CharacterChanged()
-    //{
-    //    // Do any circle-specific processing here.
 
-    //    // Call the base class event invocation method.
-    //    base.CharacterChanged();
-    //}
+
 
 }

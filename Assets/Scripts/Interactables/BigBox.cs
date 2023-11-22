@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
 
-public class Box : MonoBehaviour, IInteractable
+public class BigBox : MonoBehaviour, IInteractable
 {
     [SerializeField] Transform   _pivot;
 
@@ -20,7 +20,7 @@ public class Box : MonoBehaviour, IInteractable
     public void Interact(Characters character)
     {
         
-        if(_currentCharacter == null)
+        if(character is PlayerCharacter)
         {
             _currentCharacter = character;
             transform.SetParent(character.transform, true);

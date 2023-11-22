@@ -12,7 +12,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Box>())
+        if (other.GetComponent<BigBox>())
         {
             _animator.SetBool("IsActive", true);
             _objectToActivate.SetBool("IsActive", true);
@@ -24,7 +24,7 @@ public class PressurePlate : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //future change to GetComponent?
-        if(_isActive && other.TryGetComponent<Box>(out Box baba)) 
+        if(_isActive && other.TryGetComponent<BigBox>(out BigBox baba)) 
         {
             _animator.SetBool("IsActive", false);
             _objectToActivate.SetBool("IsActive", false);
