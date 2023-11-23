@@ -17,11 +17,9 @@ public class PlayerController: MonoBehaviour
     [SerializeField] protected  MasonCharacter      _mason;
     [SerializeField] protected  LayerMask           _groundMask;
     [SerializeField] private    LayerMask           _interactableMask;
-    [SerializeField] private bool _isInPuzzleRoom;
 
 
 
-    private bool                _controllingPlayerCharacter;
     private IInteractable       _currentInteractable;
     private IInteractable       _objectToInteract;
     private Characters          _characterToInteract;
@@ -51,8 +49,6 @@ public class PlayerController: MonoBehaviour
     {
         _currentOutlinedObject = new List<Renderer>();
         _currentCharacter = _player;
-        _controllingPlayerCharacter = true;
-        _isInPuzzleRoom = true;
         _cineCamera.Follow = _player.transform;
     }
 
