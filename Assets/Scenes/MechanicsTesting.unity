@@ -1816,7 +1816,7 @@ PrefabInstance:
     - target: {fileID: 6323116764849347041, guid: 52e6de53755ee8b48828ba9d74549212,
         type: 3}
       propertyPath: m_Name
-      value: Pressure Plate
+      value: Big Pressure Plate
       objectReference: {fileID: 0}
     - target: {fileID: 6510685681410569754, guid: 52e6de53755ee8b48828ba9d74549212,
         type: 3}
