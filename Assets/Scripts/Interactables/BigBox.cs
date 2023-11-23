@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
@@ -9,12 +11,14 @@ public class BigBox : MonoBehaviour, IInteractable
     private NavMeshObstacle _navMeshObstacle;
     private float _initialYposition;
     private Characters _currentCharacter;
+    private List<Renderer> _renderers;
 
     public Characters CurrentCharacter => _currentCharacter;
     void Awake()
     {
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
         _initialYposition = transform.position.y;
+        _renderers = GetComponentsInChildren<Renderer>().ToList();
     }
 
     public void Interact(Characters character)
@@ -45,5 +49,17 @@ public class BigBox : MonoBehaviour, IInteractable
         _currentCharacter = null;
     }
 
+    private void OnMouseEnter()
+    {
+        List<Renderer> renderers = GetComponentsInChildren<Renderer>().ToList();
+        foreach (Renderer renderer in renderers)
+            renderer.materials[1].SetFloat("_Scale", 1.1f);
+    }
+
+    private void OnMouseExit()
+    {
+        foreach (Renderer renderer in _renderers)
+            renderer.materials[1].SetFloat("_Scale", 0f);
+    }
 
 }

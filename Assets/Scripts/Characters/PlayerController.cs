@@ -58,27 +58,27 @@ public class PlayerController: MonoBehaviour
         //Shoots a ray from the camera with the direction of the mouse position
         Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
 
-        if(_currentInteractable== null)
-        {
-            if (Physics.Raycast(mouseInput, out RaycastHit interactable, float.MaxValue, _interactableMask))
-            {
-                //Goes trough all the meshes of the object and changes the scale of the outline
-                _currentOutlinedObject = interactable.collider.GetComponentsInChildren<Renderer>().ToList();
-                foreach (Renderer renderer in _currentOutlinedObject)
-                    renderer.materials[1].SetFloat("_Scale", 1.1f);
-            }
-            else
-            {
-                //Checks if its null
-                if (_currentOutlinedObject.Count != 0)
-                {
-                    //Goes trough all the meshes of the object and changes resets the outline scale
-                    foreach (Renderer renderer in _currentOutlinedObject)
-                        renderer.materials[1].SetFloat("_Scale", 0f);
-                }
+        //if(_currentInteractable== null)
+        //{
+        //    if (Physics.Raycast(mouseInput, out RaycastHit interactable, float.MaxValue, _interactableMask))
+        //    {
+        //        //Goes trough all the meshes of the object and changes the scale of the outline
+        //        _currentOutlinedObject = interactable.collider.GetComponentsInChildren<Renderer>().ToList();
+        //        foreach (Renderer renderer in _currentOutlinedObject)
+        //            renderer.materials[1].SetFloat("_Scale", 1.1f);
+        //    }
+        //    else
+        //    {
+        //        //Checks if its null
+        //        if (_currentOutlinedObject.Count != 0)
+        //        {
+        //            //Goes trough all the meshes of the object and changes resets the outline scale
+        //            foreach (Renderer renderer in _currentOutlinedObject)
+        //                renderer.materials[1].SetFloat("_Scale", 0f);
+        //        }
 
-            }
-        }
+        //    }
+        //}
         
             
 
