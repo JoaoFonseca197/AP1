@@ -10,13 +10,15 @@ using UnityEngine;
 /// </summary>
 public class PlayerController: MonoBehaviour 
 {
+        
+    [SerializeField] private Camera              _camera;
+    [SerializeField] private CinemachineFreeLook _cineCamera;
+    [SerializeField] private PlayerCharacter     _player;
+    [SerializeField] private MasonCharacter      _mason;
+    [SerializeField] private LayerMask           _groundMask;
+    [SerializeField] private LayerMask           _interactableMask;
+    [SerializeField] private ParticleSystem      _particle;
 
-    [SerializeField] protected  Camera              _camera;
-    [SerializeField] protected  CinemachineFreeLook _cineCamera;
-    [SerializeField] protected  PlayerCharacter     _player;
-    [SerializeField] protected  MasonCharacter      _mason;
-    [SerializeField] protected  LayerMask           _groundMask;
-    [SerializeField] private    LayerMask           _interactableMask;
 
 
 
@@ -24,7 +26,6 @@ public class PlayerController: MonoBehaviour
     private IInteractable       _objectToInteract;
     private Characters          _characterToInteract;
     private Characters          _currentCharacter;
-    private List<Renderer>      _currentOutlinedObject;
 
     public IInteractable CurrentInteractable
     {
@@ -47,7 +48,7 @@ public class PlayerController: MonoBehaviour
 
     private void Awake()
     {
-        _currentOutlinedObject = new List<Renderer>();
+        
         _currentCharacter = _player;
         _cineCamera.Follow = _player.transform;
     }
@@ -57,30 +58,7 @@ public class PlayerController: MonoBehaviour
     {
         //Shoots a ray from the camera with the direction of the mouse position
         Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
-
-        //if(_currentInteractable== null)
-        //{
-        //    if (Physics.Raycast(mouseInput, out RaycastHit interactable, float.MaxValue, _interactableMask))
-        //    {
-        //        //Goes trough all the meshes of the object and changes the scale of the outline
-        //        _currentOutlinedObject = interactable.collider.GetComponentsInChildren<Renderer>().ToList();
-        //        foreach (Renderer renderer in _currentOutlinedObject)
-        //            renderer.materials[1].SetFloat("_Scale", 1.1f);
-        //    }
-        //    else
-        //    {
-        //        //Checks if its null
-        //        if (_currentOutlinedObject.Count != 0)
-        //        {
-        //            //Goes trough all the meshes of the object and changes resets the outline scale
-        //            foreach (Renderer renderer in _currentOutlinedObject)
-        //                renderer.materials[1].SetFloat("_Scale", 0f);
-        //        }
-
-        //    }
-        //}
         
-            
 
         //Gets input when the player presses Left Mouse Button
         if (Input.GetButtonDown("Fire1"))
@@ -91,6 +69,9 @@ public class PlayerController: MonoBehaviour
             {
 
                 _currentCharacter.Move(hit.transform, hit.point);
+                //Instantiate(_particle, hit.point, _particle.transform.rotation);
+                _particle.Play();
+                _particle.transform.position = hit.point;
 
             }
 
