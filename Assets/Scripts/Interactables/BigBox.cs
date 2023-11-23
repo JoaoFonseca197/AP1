@@ -1,27 +1,22 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.TextCore.Text;
 
-public class BigBox : MonoBehaviour, IInteractable
+public class BigBox : Interactable
 {
     [SerializeField] Transform   _pivot;
 
     private NavMeshObstacle _navMeshObstacle;
     private float _initialYposition;
-    private Characters _currentCharacter;
-    private List<Renderer> _renderers;
 
-    public Characters CurrentCharacter => _currentCharacter;
-    void Awake()
+    private new void Awake()
     {
+        base.Awake();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
         _initialYposition = transform.position.y;
-        _renderers = GetComponentsInChildren<Renderer>().ToList();
     }
 
-    public void Interact(Characters character)
+    public override void Interact(Characters character)
     {
         
         if(character is PlayerCharacter)
@@ -37,7 +32,7 @@ public class BigBox : MonoBehaviour, IInteractable
         }  
     }
 
-    public void StopInteract()
+    public override void StopInteract()
     {
 
         transform.parent = null;
@@ -47,19 +42,6 @@ public class BigBox : MonoBehaviour, IInteractable
         _currentCharacter.NavMeshAgent.speed = 10;
         _currentCharacter.NavMeshAgent.angularSpeed = 360;
         _currentCharacter = null;
-    }
-
-    private void OnMouseEnter()
-    {
-        List<Renderer> renderers = GetComponentsInChildren<Renderer>().ToList();
-        foreach (Renderer renderer in renderers)
-            renderer.materials[1].SetFloat("_Scale", 1.1f);
-    }
-
-    private void OnMouseExit()
-    {
-        foreach (Renderer renderer in _renderers)
-            renderer.materials[1].SetFloat("_Scale", 0f);
     }
 
 }

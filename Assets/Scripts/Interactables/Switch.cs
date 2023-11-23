@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class Switch : MonoBehaviour, IInteractable
+public class Switch : Interactable
 {
     [SerializeField] private Animator _objectanimator;
     [SerializeField] private Animator _animator;
 
-    private Characters _currentCharacter;
     private bool _isActive;
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
         _isActive = false; 
     }
 
-    public Characters CurrentCharacter => _currentCharacter;
 
-    public void Interact(Characters character)
+    public override void Interact(Characters character)
     {
         if(_isActive)
         {
@@ -32,11 +31,5 @@ public class Switch : MonoBehaviour, IInteractable
             _objectanimator.SetBool("IsActive", true);
             _isActive = true;
         }
-        
-
-        
     }
-
-
-    public void StopInteract() { }
 }

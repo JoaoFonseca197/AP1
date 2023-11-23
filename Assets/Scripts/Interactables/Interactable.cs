@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour , IInteractable
     private List<Renderer> _renderers;
 
     // Start is called before the first frame update
-    private Characters _currentCharacter;
+    protected Characters _currentCharacter;
 
     
     public Characters CurrentCharacter => _currentCharacter;

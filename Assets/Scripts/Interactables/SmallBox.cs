@@ -4,16 +4,15 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SmallBox : Interactable, IInteractable
+public class SmallBox : Interactable
 {
     [SerializeField] Transform _pivot;
 
     private NavMeshObstacle _navMeshObstacle;
     private float           _initialYposition;
-    private Characters      _currentCharacter;
     
 
-    void  Awake()
+    private new void  Awake()
     {
         base.Awake();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();

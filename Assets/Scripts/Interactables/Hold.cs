@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Hold : MonoBehaviour, IInteractable
+public class Hold : Interactable
 {
     [SerializeField] private Animator   _objectanimator;
     [SerializeField] private Animator   _animator;
     [SerializeField] private PlayerController _playerController;
 
-    private Characters _currentCharacter;
 
-    public Characters CurrentCharacter => _currentCharacter;
-
-    public void Interact(Characters character)
+    public override void Interact(Characters character)
     {
         _animator.SetBool("IsActive", true);
         _objectanimator.SetBool("IsActive", true);
@@ -25,7 +22,7 @@ public class Hold : MonoBehaviour, IInteractable
     }
 
 
-    public void StopInteract() 
+    public override void StopInteract() 
     {
         _animator.SetBool("IsActive", false);
         _objectanimator.SetBool("IsActive", false);
