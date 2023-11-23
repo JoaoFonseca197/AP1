@@ -4,24 +4,23 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SmallBox : MonoBehaviour, IInteractable
+public class SmallBox : Interactable, IInteractable
 {
     [SerializeField] Transform _pivot;
 
     private NavMeshObstacle _navMeshObstacle;
     private float           _initialYposition;
     private Characters      _currentCharacter;
-    private List<Renderer>  _renderers;
+    
 
-    public Characters CurrentCharacter => _currentCharacter;
-    void Awake()
+    void  Awake()
     {
+        base.Awake();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
         _initialYposition = transform.position.y;
-        _renderers =  GetComponentsInChildren<Renderer>().ToList();
     }
 
-    public void Interact(Characters character)
+    public override void Interact(Characters character)
     {
 
             _currentCharacter = character;
@@ -35,7 +34,7 @@ public class SmallBox : MonoBehaviour, IInteractable
 
     }
 
-    public void StopInteract()
+    public override void StopInteract()
     {
 
         transform.parent = null;
@@ -47,16 +46,4 @@ public class SmallBox : MonoBehaviour, IInteractable
         _currentCharacter = null;
     }
 
-    private void OnMouseEnter()
-    {
-        List<Renderer> renderers = GetComponentsInChildren<Renderer>().ToList();
-        foreach (Renderer renderer in renderers)
-            renderer.materials[1].SetFloat("_Scale", 1.1f);
-    }
-
-    private void OnMouseExit()
-    {
-        foreach (Renderer renderer in _renderers)
-            renderer.materials[1].SetFloat("_Scale", 0f);
-    }
 }
