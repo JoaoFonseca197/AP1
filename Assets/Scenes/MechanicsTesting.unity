@@ -1818,6 +1818,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pressure Plate
       objectReference: {fileID: 0}
+    - target: {fileID: 6510685681410569754, guid: 52e6de53755ee8b48828ba9d74549212,
+        type: 3}
+      propertyPath: _objectToActivate
+      value: 
+      objectReference: {fileID: 1600463599}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
