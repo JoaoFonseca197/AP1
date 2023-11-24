@@ -7,15 +7,18 @@ using UnityEngine.AI;
 public class EnemyScript : MonoBehaviour
 {
     [SerializeField] float                  _maxLookRange;
+    [Range(0,360)]
+    [SerializeField] float                  _viewAngle;
     [SerializeField] List<Transform>        _patrollingPoints;
     [SerializeField] private NavMeshAgent   _navMeshAgent;
-    [SerializeField] private Transform          _player;
-    [SerializeField] private Transform          _mason;
+    [SerializeField] private Transform      _player;
+    [SerializeField] private Transform      _mason;
+    [SerializeField] private LayerMask      _charactersLayerMask;
 
-    private int         _currentPatrollingPoint;
-    private Vector3     _characterToChase;
-    private StateMachine _fms;
-
+    private int             _currentPatrollingPoint;
+    private Vector3         _characterToChase;
+    private StateMachine    _fms;
+    private bool            _canSeePlayer;
     private void Awake()
     {
         _currentPatrollingPoint = 0;
@@ -27,9 +30,7 @@ public class EnemyScript : MonoBehaviour
         ()=> Patrolling(),null);
         State chase = new State("Chasing", null, () => Chase(), null);
 
-        Transition onPatrollingToChase = new Transition(() =>
-        (_player.position - transform.position).magnitude < _maxLookRange ||
-        (_mason.position - transform.position).magnitude < _maxLookRange,
+        Transition onPatrollingToChase = new Transition(CheckForCharacters,
         null, chase);
 
         Transition onChaseToPatrol = new Transition(()=>
@@ -85,23 +86,64 @@ public class EnemyScript : MonoBehaviour
     /// </summary>
     private void Chase()
     {
-        _characterToChase = ChekForClosestCharacter();
+        //_characterToChase = ChekForClosestCharacter();
         _navMeshAgent.SetDestination(_characterToChase);
+    }
+
+    private bool CheckForCharacters()
+    {
+        Collider[] character = Physics.OverlapSphere(transform.position, _maxLookRange, _charactersLayerMask);
+        List<Vector3> characterPositions = new List<Vector3>();
+        
+        //See if they are inside of vision range
+        if(character.Length != 0)
+        {
+            //Checks for each character
+            for(int i = 0; i < character.Length; i++)
+            {
+                Vector3 targetDirection = (character[i].transform.position - transform.position).normalized;
+                //if they are inside of the cone vision
+                if (Vector3.Angle(character[i].transform.forward, targetDirection) < _viewAngle/2)
+                {
+                    //Change to see obstruction ?
+                    if (Physics.Raycast(transform.position, targetDirection, _maxLookRange, _charactersLayerMask))
+                        characterPositions.Add(character[i].transform.position);
+                }
+            }
+
+            if(characterPositions.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                _characterToChase = ChekForClosestCharacter(characterPositions);
+                return true;
+            }
+            
+        }
+        else
+            return false;
     }
 
     /// <summary>
     /// Sees whats is the closest character
     /// </summary>
     /// <returns>The position of the closest character</returns>
-    private Vector3 ChekForClosestCharacter()
+    private Vector3 ChekForClosestCharacter(List<Vector3> characters)
     {
-        float enemyToPlayer = (_player.position - transform.position).magnitude;
-        float enemyToMason = (_mason.position - transform.position).magnitude;
-
-        if (enemyToMason < enemyToPlayer)
-            return _mason.position;
+        
+        if(characters.Count == 1)
+            return characters[0];
         else
-            return _player.position;
+        {
+            float distance1 = Vector3.Distance(transform.position, characters[0]);
+            float distance2 = Vector3.Distance(transform.position, characters[1]);
+            if (distance1< distance2)
+                return characters[0];
+            else
+                return characters[1];
+        }
     }
 
     
