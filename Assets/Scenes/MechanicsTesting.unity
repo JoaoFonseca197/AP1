@@ -1682,6 +1682,21 @@ PrefabInstance:
       objectReference: {fileID: 326280744}
     - target: {fileID: 183179763447935168, guid: 1e14eaee04b24e9469c71237cf8af81a,
         type: 3}
+      propertyPath: _viewAngle
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 183179763447935168, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
+      propertyPath: _maxLookRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 183179763447935168, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
+      propertyPath: _charactersLayerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 183179763447935168, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
       propertyPath: _patrollingPoints.Array.data[0]
       value: 
       objectReference: {fileID: 84647910}

@@ -6,9 +6,9 @@ using UnityEngine.AI;
 
 public class EnemyScript : MonoBehaviour
 {
-    [SerializeField] float                  _maxLookRange;
+    [SerializeField] public float                  _maxLookRange;
     [Range(0,360)]
-    [SerializeField] float                  _viewAngle;
+    [SerializeField] public float                  _viewAngle;
     [SerializeField] List<Transform>        _patrollingPoints;
     [SerializeField] private NavMeshAgent   _navMeshAgent;
     [SerializeField] private Transform      _player;
@@ -65,11 +65,14 @@ public class EnemyScript : MonoBehaviour
     /// </summary>
     private void Patrolling()
     {
+        print("Patrolling");
         _navMeshAgent.SetDestination(_patrollingPoints[_currentPatrollingPoint].position);
         //variable made to ignore y axis
         Vector3 xzPosition = new Vector3(_patrollingPoints[_currentPatrollingPoint].position.x,
             _navMeshAgent.gameObject.transform.position.y, _patrollingPoints[_currentPatrollingPoint].position.z);
-        if (_navMeshAgent.gameObject.transform.position == xzPosition)
+
+        float distanceToPatrolP = Vector3.Distance(transform.position, xzPosition);
+        if (distanceToPatrolP < 1f)
         {
            
             _currentPatrollingPoint++;
@@ -86,8 +89,10 @@ public class EnemyScript : MonoBehaviour
     /// </summary>
     private void Chase()
     {
+        print("Chasing");
         //_characterToChase = ChekForClosestCharacter();
         _navMeshAgent.SetDestination(_characterToChase);
+        print(_characterToChase);
     }
 
     private bool CheckForCharacters()
