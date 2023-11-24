@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Class responsible for the enemy AI behavior
@@ -20,6 +21,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private LayerMask              _interactableMash;
     [SerializeField] private TagAttribute           _player;
 
+    private bool                _seesPlayer;
     private int                 _currentPatrollingPoint;
     private Vector3             _characterToChase;
     private StateMachine        _fms;
@@ -38,10 +40,10 @@ public class EnemyScript : MonoBehaviour
         ()=> Patrolling(),null);
         State chase = new State("Chasing", null, () => Chase(), null);
 
-        Transition onPatrollingToChase = new Transition(CheckForCharacters,
+        Transition onPatrollingToChase = new Transition(()=> _seesPlayer,
         null, chase);
 
-        Transition onChaseToPatrol = new Transition(()=> !CheckForCharacters(),
+        Transition onChaseToPatrol = new Transition(()=> !_seesPlayer,
         null,patrolling);
 
         patrolling.AddTransition(onPatrollingToChase);
@@ -64,8 +66,10 @@ public class EnemyScript : MonoBehaviour
 
     private void Update()
     {
+        CheckForCharacters();
         // Get actions from state machine and invoke them
         Action actionToDo = _fms.Update();
+
         actionToDo?.Invoke();
     }
 
@@ -108,10 +112,11 @@ public class EnemyScript : MonoBehaviour
     private void Chase()
     {
         _characterToChase = CheckForClosestCharacter(_charactersToChase);
+        _charactersToChase.Clear();
         _navMeshAgent.SetDestination(_characterToChase);
     }
 
-    private bool CheckForCharacters()
+    private void CheckForCharacters()
     {
         Collider[] character = Physics.OverlapSphere(transform.position, _maxLookRange, _charactersLayerMask);
         
@@ -139,17 +144,17 @@ public class EnemyScript : MonoBehaviour
 
             if(_charactersToChase.Count == 0)
             {
-                return false;
+                _seesPlayer = false;
             }
             else
             {
 
-                return true;
+                _seesPlayer = true;
             }
             
         }
         else
-            return false;
+            _seesPlayer = false;
     }
 
     /// <summary>
