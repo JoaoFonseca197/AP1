@@ -1,25 +1,31 @@
 using LibGameAI.FSMs;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Class responsible for the enemy AI behavior
+/// </summary>
 public class EnemyScript : MonoBehaviour
 {
-    [SerializeField] public float                  _maxLookRange;
+    [SerializeField] public float                   _maxLookRange;
     [Range(0,360)]
-    [SerializeField] public float                  _viewAngle;
-    [SerializeField] List<Transform>        _patrollingPoints;
-    [SerializeField] private NavMeshAgent   _navMeshAgent;
-    [SerializeField] private Transform      _player;
-    [SerializeField] private Transform      _mason;
-    [SerializeField] private LayerMask      _charactersLayerMask;
+    [SerializeField] public float                   _viewAngle;
+    [SerializeField] List<Transform>                _patrollingPoints;
+    [SerializeField] private NavMeshAgent           _navMeshAgent;
+    [SerializeField] private LayerMask              _charactersLayerMask;
+    [SerializeField] private LayerMask              _obstructionMash;
+    [SerializeField] private LayerMask              _interactableMash;
+    [SerializeField] private TagAttribute           _player;
 
-    private bool                _canSeeCharacter;
     private int                 _currentPatrollingPoint;
     private Vector3             _characterToChase;
     private StateMachine        _fms;
     private List<Transform>     _charactersToChase;
+
+
     private void Awake()
     {
         _currentPatrollingPoint = 0;
@@ -46,6 +52,10 @@ public class EnemyScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// If touches another character kills it
+    /// </summary>
+    /// <param name="other">Collider that hit this one</param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Characters>())
@@ -62,16 +72,24 @@ public class EnemyScript : MonoBehaviour
     /// <summary>
     /// Character will go point to point through all
     /// point in the _patrollingPoints array
+    /// If there is no patrol points the enemy will
+    /// stand in one place
     /// </summary>
     private void Patrolling()
     {
-        print("Patrolling");
+        //If there is no points the enemy will stand in one place
+        if (_patrollingPoints.Count == 0)
+            return;
+
+        //Sets the destination of the enemy to the current PatrolPoint
         _navMeshAgent.SetDestination(_patrollingPoints[_currentPatrollingPoint].position);
         //variable made to ignore y axis
         Vector3 xzPosition = new Vector3(_patrollingPoints[_currentPatrollingPoint].position.x,
             _navMeshAgent.gameObject.transform.position.y, _patrollingPoints[_currentPatrollingPoint].position.z);
-
+        //Checks the distance to the PatrolPoint
         float distanceToPatrolP = Vector3.Distance(transform.position, xzPosition);
+
+        //If its lesser 
         if (distanceToPatrolP < 1f)
         {
            
@@ -89,7 +107,6 @@ public class EnemyScript : MonoBehaviour
     /// </summary>
     private void Chase()
     {
-        print("Chasing");
         _characterToChase = CheckForClosestCharacter(_charactersToChase);
         _navMeshAgent.SetDestination(_characterToChase);
     }
@@ -106,11 +123,17 @@ public class EnemyScript : MonoBehaviour
             {
                 Vector3 targetDirection = (character[i].transform.position - transform.position).normalized;
                 //if they are inside of the cone vision
-                if (Vector3.Angle(character[i].transform.forward, targetDirection) < _viewAngle/2)
+                if (Vector3.Angle(transform.forward, targetDirection) < _viewAngle/2)
                 {
-                    //Change to see obstruction ?
-                    if (Physics.Raycast(transform.position, targetDirection, _maxLookRange, _charactersLayerMask))
-                        _charactersToChase.Add(character[i].transform);
+                    Ray ray = new Ray(transform.position,targetDirection);
+                    //Sees if is not an obstruction or interactable
+                    if (!Physics.Raycast(ray,  _maxLookRange, _obstructionMash) &&
+                        !Physics.Raycast(ray, _maxLookRange, _interactableMash))
+                    {
+                            _charactersToChase.Add(character[i].transform);
+
+                    }
+                        
                 }
             }
 
