@@ -15,13 +15,15 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private Transform      _mason;
     [SerializeField] private LayerMask      _charactersLayerMask;
 
-    private int             _currentPatrollingPoint;
-    private Vector3         _characterToChase;
-    private StateMachine    _fms;
-    private bool            _canSeePlayer;
+    private bool                _canSeeCharacter;
+    private int                 _currentPatrollingPoint;
+    private Vector3             _characterToChase;
+    private StateMachine        _fms;
+    private List<Transform>     _charactersToChase;
     private void Awake()
     {
         _currentPatrollingPoint = 0;
+        _charactersToChase = new List<Transform>();
     }
 
     private void Start()
@@ -33,9 +35,7 @@ public class EnemyScript : MonoBehaviour
         Transition onPatrollingToChase = new Transition(CheckForCharacters,
         null, chase);
 
-        Transition onChaseToPatrol = new Transition(()=>
-        (_player.position - transform.position).magnitude > _maxLookRange &&
-        (_mason.position - transform.position).magnitude > _maxLookRange,
+        Transition onChaseToPatrol = new Transition(()=> !CheckForCharacters(),
         null,patrolling);
 
         patrolling.AddTransition(onPatrollingToChase);
@@ -90,15 +90,13 @@ public class EnemyScript : MonoBehaviour
     private void Chase()
     {
         print("Chasing");
-        //_characterToChase = ChekForClosestCharacter();
+        _characterToChase = CheckForClosestCharacter(_charactersToChase);
         _navMeshAgent.SetDestination(_characterToChase);
-        print(_characterToChase);
     }
 
     private bool CheckForCharacters()
     {
         Collider[] character = Physics.OverlapSphere(transform.position, _maxLookRange, _charactersLayerMask);
-        List<Vector3> characterPositions = new List<Vector3>();
         
         //See if they are inside of vision range
         if(character.Length != 0)
@@ -112,17 +110,17 @@ public class EnemyScript : MonoBehaviour
                 {
                     //Change to see obstruction ?
                     if (Physics.Raycast(transform.position, targetDirection, _maxLookRange, _charactersLayerMask))
-                        characterPositions.Add(character[i].transform.position);
+                        _charactersToChase.Add(character[i].transform);
                 }
             }
 
-            if(characterPositions.Count == 0)
+            if(_charactersToChase.Count == 0)
             {
                 return false;
             }
             else
             {
-                _characterToChase = ChekForClosestCharacter(characterPositions);
+
                 return true;
             }
             
@@ -135,19 +133,19 @@ public class EnemyScript : MonoBehaviour
     /// Sees whats is the closest character
     /// </summary>
     /// <returns>The position of the closest character</returns>
-    private Vector3 ChekForClosestCharacter(List<Vector3> characters)
+    private Vector3 CheckForClosestCharacter(List<Transform> characters)
     {
         
         if(characters.Count == 1)
-            return characters[0];
+            return characters[0].position;
         else
         {
-            float distance1 = Vector3.Distance(transform.position, characters[0]);
-            float distance2 = Vector3.Distance(transform.position, characters[1]);
+            float distance1 = Vector3.Distance(transform.position, characters[0].position);
+            float distance2 = Vector3.Distance(transform.position, characters[1].position);
             if (distance1< distance2)
-                return characters[0];
+                return characters[0].position;
             else
-                return characters[1];
+                return characters[1].position;
         }
     }
 

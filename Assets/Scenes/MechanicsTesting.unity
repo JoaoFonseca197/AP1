@@ -1670,6 +1670,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 54536651155129712, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 183179763447935168, guid: 1e14eaee04b24e9469c71237cf8af81a,
         type: 3}
       propertyPath: _mason
@@ -1715,6 +1720,11 @@ PrefabInstance:
       propertyPath: _patrollingPoints.Array.data[3]
       value: 
       objectReference: {fileID: 410308093}
+    - target: {fileID: 966167704070250369, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2180748889172016814, guid: 1e14eaee04b24e9469c71237cf8af81a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1764,6 +1774,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085404462407800315, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864618553452304675, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376543250464180125, guid: 1e14eaee04b24e9469c71237cf8af81a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
