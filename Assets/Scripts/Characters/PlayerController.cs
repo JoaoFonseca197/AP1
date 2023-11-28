@@ -34,17 +34,9 @@ public class PlayerController: MonoBehaviour
     }
     
 
-    private void OnEnable()
-    {
-        _player.ReachedDestiny += Interact;
-        _mason.ReachedDestiny += Interact;
-    }
 
-    private void OnDisable()
-    {
-        _mason.ReachedDestiny -= Interact;
-        _player.ReachedDestiny -= Interact;
-    }
+
+    
 
     private void Awake()
     {
@@ -81,17 +73,17 @@ public class PlayerController: MonoBehaviour
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
-                IInteractable hitInteractable = hit.collider.GetComponent<IInteractable>();
+                Interactable hitInteractable = hit.collider.GetComponent<Interactable>();
                 if (_currentCharacter.Interactable == null && hitInteractable.CurrentCharacter == null)
                 {
-                    _currentCharacter.Move(hit.transform.position + hit.normal, hit.transform.position);
-                    _objectToInteract = hitInteractable;
-                    _characterToInteract = _currentCharacter;
+                    _currentCharacter.Move(hit.transform.position + hit.normal,hitInteractable, hit.transform.position);
+                    //_objectToInteract = hitInteractable;
+                    //_characterToInteract = _currentCharacter;
                 }
 
                 if(_currentCharacter.Interactable == hitInteractable)
                 {
-                    _currentCharacter.Move(hit.transform.position + hit.normal, hit.transform.position);
+                    _currentCharacter.Move(hit.transform.position + hit.normal, hitInteractable, hit.transform.position);
                 }
             }
         }
@@ -120,21 +112,5 @@ public class PlayerController: MonoBehaviour
 
 
 
-    private void Interact()
-    {
-        if(_characterToInteract.Interactable == null)
-        {
-            _currentInteractable = _objectToInteract;
-            _objectToInteract = null;
-            _currentInteractable?.Interact(_characterToInteract);
-        }
-        else
-        {
-            _currentCharacter.Interactable.StopInteract();
-        }
-        //_currentInteractable = _objectToInteract;
-        //_objectToInteract = null;
-        //_currentInteractable?.Interact(_currentCharacter); 
-    }
 
 }

@@ -18,8 +18,9 @@ public class Characters : MonoBehaviour
     protected Vector3       _destiny;
     protected Vector3       _lookAt;
     protected bool          _isMoving;
+    protected Interactable  _InteractableYetToInteract;
 
-    public IInteractable Interactable { get; set; }
+    public Interactable Interactable { get; set; }
         
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
 
@@ -38,6 +39,8 @@ public class Characters : MonoBehaviour
             _navMeshAgent.SetDestination(destiny);
         
     }
+
+
 
     /// <summary>
     /// Plays the animation of dying
@@ -60,12 +63,28 @@ public class Characters : MonoBehaviour
     /// </summary>
     /// <param name="destiny">Where the character goes</param>
     /// <param name="lookAt">Position where the character will rotate</param>
-    public virtual void Move(Vector3 destiny, Vector3 lookAt)
+    public virtual void Move(Vector3 destiny, Interactable interactable, Vector3 lookAt)
     {
         _destiny = destiny ;
-        _navMeshAgent.SetDestination(destiny);
+        _navMeshAgent.SetDestination(_destiny);
         _isMoving = true;
-        
+        _InteractableYetToInteract = interactable;
+       
+    }
+
+    protected void Interact(Interactable interactable)
+    {
+        if (Interactable == null)
+        {
+            
+            interactable?.Interact(this);
+            _InteractableYetToInteract = null;
+        }
+        else
+        {
+            Interactable.StopInteract();
+        }
+
     }
 
     protected void FixedUpdate()
@@ -78,7 +97,7 @@ public class Characters : MonoBehaviour
             _navMeshAgent.updateRotation = true;
 
             //Invokes this event to alert that his done moving
-            ReachedDestiny?.Invoke();
+            Interact(_InteractableYetToInteract);
             _isMoving = false;
         }
     }
