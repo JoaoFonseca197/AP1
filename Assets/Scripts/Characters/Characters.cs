@@ -10,6 +10,7 @@ public class Characters : MonoBehaviour
     [SerializeField] protected float _minHighDistance;
     [SerializeField] protected Transform _playerPivot;
     [SerializeField] protected Animator _animator;
+    [SerializeField] public bool _hasKey;
 
     public Action ReachedDestiny;
 
