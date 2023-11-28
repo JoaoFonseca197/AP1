@@ -92,7 +92,6 @@ public class PlayerController: MonoBehaviour
                 if(_currentCharacter.Interactable == hitInteractable)
                 {
                     _currentCharacter.Move(hit.transform.position + hit.normal, hit.transform.position);
-                    
                 }
             }
         }
