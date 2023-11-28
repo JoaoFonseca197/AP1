@@ -26,7 +26,6 @@ public class BigPressurePlate : MonoBehaviour
 
             if (_currentObjectActivating != null )
             {
-                print(_currentObjectActivating.name);
                 _animator.SetBool("IsActive", true);
                 _objectToActivate.SetBool("IsActive", true);
                 _isActive = true;

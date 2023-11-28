@@ -9,14 +9,12 @@ public class SmallBox : Interactable
     [SerializeField] Transform _pivot;
 
     private NavMeshObstacle _navMeshObstacle;
-    private float           _initialYposition;
     
 
     private new void  Awake()
     {
         base.Awake();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
-        _initialYposition = transform.position.y;
     }
 
     public override void Interact(Characters character)
@@ -24,7 +22,7 @@ public class SmallBox : Interactable
 
             _currentCharacter = character;
             transform.SetParent(character.transform, true);
-            transform.SetLocalPositionAndRotation(new Vector3(0, 0.5f, transform.localScale.z + 1f), Quaternion.identity);
+            transform.SetLocalPositionAndRotation(new Vector3(0, 0, transform.localScale.z + 1f), Quaternion.identity);
             _navMeshObstacle.enabled = false;
             _currentCharacter.Interactable = this;
             _currentCharacter.NavMeshAgent.speed = 6;
@@ -35,9 +33,9 @@ public class SmallBox : Interactable
 
     public override void StopInteract()
     {
-
+        Vector3 distanceToCharacter = _currentCharacter.transform.position + transform.localPosition;
         transform.parent = null;
-        transform.SetLocalPositionAndRotation(new Vector3(transform.position.x, _initialYposition, transform.position.z), Quaternion.identity);
+        transform.SetLocalPositionAndRotation( new Vector3(distanceToCharacter.x,transform.localScale.y/2, distanceToCharacter.z), Quaternion.identity);
         _navMeshObstacle.enabled = true;
         _currentCharacter.Interactable = null;
         _currentCharacter.NavMeshAgent.speed = 10;
