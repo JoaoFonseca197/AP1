@@ -78,7 +78,7 @@ public class Characters : MonoBehaviour
         if (Interactable == null)
         {
             
-            interactable?.Interact(this);
+            interactable.Interact(this);
             _InteractableYetToInteract = null;
         }
         else

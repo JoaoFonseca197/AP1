@@ -32,7 +32,8 @@ public class BigBox : Interactable
 
     public override void StopInteract()
     {
-        Vector3 distanceToCharacter = _currentCharacter.transform.position + transform.localPosition;
+
+        Vector3 distanceToCharacter = _currentCharacter.transform.forward + _currentCharacter.transform.position + transform.localPosition;
         transform.parent = null;
         transform.SetLocalPositionAndRotation(new Vector3(distanceToCharacter.x, transform.localScale.y / 2, distanceToCharacter.z), Quaternion.identity);
         _navMeshObstacle.enabled = true;
@@ -40,6 +41,8 @@ public class BigBox : Interactable
         _currentCharacter.NavMeshAgent.speed = 10;
         _currentCharacter.NavMeshAgent.angularSpeed = 360;
         _currentCharacter = null;
+        
+        
     }
 
 }
