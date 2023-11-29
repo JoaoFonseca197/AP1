@@ -26,7 +26,7 @@ public class BigBox : Interactable
             _currentCharacter.Interactable = this;
             _currentCharacter.NavMeshAgent.speed = 6;
             _currentCharacter.NavMeshAgent.angularSpeed = 0;
-            _currentCharacter.transform.rotation = Quaternion.identity;
+            //_currentCharacter.transform.rotation = Quaternion.identity;
         }  
     }
 

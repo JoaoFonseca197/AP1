@@ -69,6 +69,7 @@ public class Characters : MonoBehaviour
         _navMeshAgent.SetDestination(_destiny);
         _isMoving = true;
         _InteractableYetToInteract = interactable;
+        _lookAt = lookAt;
        
     }
 
@@ -89,7 +90,7 @@ public class Characters : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.5f && _isMoving)
+        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.1f && _isMoving)
         {
             //Makes the rotation of the character
             _navMeshAgent.updateRotation = false;
