@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class KeyHole : MonoBehaviour
+public class KeyHole : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Animator _objectanimator;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private float _timeToActivateAgain;
+    [SerializeField] private GameObject _keyanim;
+
+    public override void Interact(Characters character)
     {
+        if (character.HasKey == true)
+        {
+            _keyanim.SetActive(true);
+            _animator.SetBool("IsActive", true);
+            _objectanimator.SetBool("IsActive", true);
+        }
         
+        else
+        {
+            Console.WriteLine("You don't have a key");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public override void StopInteract()
     {
-        
+        _animator.SetBool("IsActive", false);
+        _objectanimator.SetBool("IsActive", false);
     }
 }

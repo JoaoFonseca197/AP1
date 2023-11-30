@@ -10,7 +10,6 @@ public class Characters : MonoBehaviour
     [SerializeField] protected float _minHighDistance;
     [SerializeField] protected Transform _playerPivot;
     [SerializeField] protected Animator _animator;
-    [SerializeField] public bool _hasKey;
 
     public Action ReachedDestiny;
 
@@ -21,8 +20,14 @@ public class Characters : MonoBehaviour
     protected Interactable  _InteractableYetToInteract;
 
     public Interactable Interactable { get; set; }
-        
+    [field: SerializeField] public bool HasKey { get; set; }
+
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
+
+    protected void Awake()
+    {
+        HasKey = false;
+    }
 
     /// <summary>
     /// Called simply when the character moves

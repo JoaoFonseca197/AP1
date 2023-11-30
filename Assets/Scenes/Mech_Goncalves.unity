@@ -488,7 +488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &321421032
 Transform:
   m_ObjectHideFlags: 0
@@ -822,6 +822,12 @@ MonoBehaviour:
   _objectanimator: {fileID: 1600463599}
   _animator: {fileID: 548481939}
   _timeToActivateAgain: 2
+--- !u!95 &551959913 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7100264465333484591, guid: d99fccb2129979646957aa9a52041e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 1808996402}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &580004239
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +907,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 77bb2dd1a60cb8f45861b993e2e4c5ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -942,6 +949,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650b2cc35ae566a4abb427919ca99bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectanimator: {fileID: 551959913}
+  _animator: {fileID: 580004245}
+  _timeToActivateAgain: 2
+  _keyanim: {fileID: 321421031}
 --- !u!95 &580004245
 Animator:
   serializedVersion: 5
@@ -2089,6 +2100,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Key
       objectReference: {fileID: 0}
+    - target: {fileID: 930698612269236950, guid: a58ece0da80ccaf45a871ee249f99e20,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 930698612269236950, guid: a58ece0da80ccaf45a871ee249f99e20,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 77bb2dd1a60cb8f45861b993e2e4c5ce, type: 2}
     - target: {fileID: 6547254119905844411, guid: a58ece0da80ccaf45a871ee249f99e20,
         type: 3}
       propertyPath: m_LocalPosition.x
