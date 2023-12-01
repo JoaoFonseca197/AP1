@@ -5,10 +5,19 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour , IInteractable
 {
-    private List<Renderer> _renderers;
+    [SerializeField] protected List<Interactable> _requirements;
+    [SerializeField] protected Interactable _objectToActivate;
+    [SerializeField] protected Animator _animator;
 
-    // Start is called before the first frame update
+
+    private List<Renderer>  _renderers;
+
     protected Characters _currentCharacter;
+
+    protected bool _requirementsMet;
+
+    [field: SerializeField]
+    protected bool IsActive { get;set; }
 
     
     public Characters CurrentCharacter => _currentCharacter;
@@ -17,19 +26,35 @@ public class Interactable : MonoBehaviour , IInteractable
     {
         _renderers = GetComponentsInChildren<Renderer>().ToList();
     }
-    public virtual void Interact(Characters character) { }
+    public virtual void Interact(Characters character) 
+    {
+        if(_requirements.Count > 0)
+        {
+            foreach (Interactable interactable in _requirements)
+            {
+                if (!interactable.IsActive)
+                {
+                    _requirementsMet = false;
+                    return;
+                }
+                _requirementsMet = true;
+            }
+        }
+        _requirementsMet = true;
+        
+    }
     
 
     public virtual void StopInteract() { }
 
-    protected void OnMouseEnter()
+    protected virtual void OnMouseEnter()
     {
         List<Renderer> renderers = GetComponentsInChildren<Renderer>().ToList();
         foreach (Renderer renderer in renderers)
             renderer.materials[1].SetFloat("_Scale", 1.1f);
     }
 
-    protected void OnMouseExit()
+    protected virtual void OnMouseExit()
     {
         foreach (Renderer renderer in _renderers)
             renderer.materials[1].SetFloat("_Scale", 0f);

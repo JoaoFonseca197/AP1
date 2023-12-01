@@ -8,7 +8,7 @@ public interface IInteractable
 {
 
 
-    public Characters CurrentCharacter { get; }
+    
     void Interact(Characters character);
 
 

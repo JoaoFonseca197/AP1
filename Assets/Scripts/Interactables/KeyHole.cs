@@ -6,7 +6,6 @@ using System;
 public class KeyHole : Interactable
 {
     [SerializeField] private Animator _objectanimator;
-    [SerializeField] private Animator _animator;
     [SerializeField] private float _timeToActivateAgain;
     [SerializeField] private GameObject _keyanim;
 
