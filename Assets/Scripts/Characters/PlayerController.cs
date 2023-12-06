@@ -20,12 +20,11 @@ public class PlayerController: MonoBehaviour
     [SerializeField] private ParticleSystem      _particle;
 
 
-
-
     private IInteractable       _currentInteractable;
     private IInteractable       _objectToInteract;
     private Characters          _characterToInteract;
     private Characters          _currentCharacter;
+
 
     public IInteractable CurrentInteractable
     {
@@ -40,7 +39,6 @@ public class PlayerController: MonoBehaviour
 
     private void Awake()
     {
-        
         _currentCharacter = _player;
         _cineCamera.Follow = _player.transform;
     }
@@ -50,6 +48,8 @@ public class PlayerController: MonoBehaviour
     {
         //Shoots a ray from the camera with the direction of the mouse position
         Ray mouseInput = _camera.ScreenPointToRay(Input.mousePosition);
+        //Gets the value of the Mouse ScrollWheel
+        float scrollValue = Input.GetAxis("Mouse ScrollWheel");
         
 
         //Gets input when the player presses Left Mouse Button
@@ -90,7 +90,8 @@ public class PlayerController: MonoBehaviour
         //
         //Test the swaping camera
         //Works better when _isInPuzzleRoom is true
-        if (Input.GetKeyDown(KeyCode.Space))
+        //float scrollValue = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollValue != 0f)
         {
             //Checks which character is player controlling
             if(_currentCharacter == _player)
