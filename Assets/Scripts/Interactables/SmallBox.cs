@@ -20,27 +20,27 @@ public class SmallBox : Interactable
     public override void Interact(Characters character)
     {
 
-            _currentCharacter = character;
+            _interactingCharacter = character;
             transform.SetParent(character.transform, true);
             transform.SetLocalPositionAndRotation(new Vector3(0, 0, transform.localScale.z + 1f), Quaternion.identity);
             _navMeshObstacle.enabled = false;
-            _currentCharacter.Interactable = this;
-            _currentCharacter.NavMeshAgent.speed = 6;
-            _currentCharacter.NavMeshAgent.angularSpeed = 0;
-            _currentCharacter.transform.rotation = Quaternion.identity;
+            _interactingCharacter.Interactable = this;
+            _interactingCharacter.NavMeshAgent.speed = 6;
+            _interactingCharacter.NavMeshAgent.angularSpeed = 0;
+            _interactingCharacter.transform.rotation = Quaternion.identity;
 
     }
 
     public override void StopInteract()
     {
-        Vector3 distanceToCharacter = _currentCharacter.transform.forward + _currentCharacter.transform.position + transform.localPosition;
+        Vector3 distanceToCharacter = _interactingCharacter.transform.forward + _interactingCharacter.transform.position + transform.localPosition;
         transform.parent = null;
         transform.SetLocalPositionAndRotation(new Vector3(distanceToCharacter.x, transform.localScale.y / 2, distanceToCharacter.z), Quaternion.identity);
         _navMeshObstacle.enabled = true;
-        _currentCharacter.Interactable = null;
-        _currentCharacter.NavMeshAgent.speed = 10;
-        _currentCharacter.NavMeshAgent.angularSpeed = 360;
-        _currentCharacter = null;
+        _interactingCharacter.Interactable = null;
+        _interactingCharacter.NavMeshAgent.speed = 10;
+        _interactingCharacter.NavMeshAgent.angularSpeed = 360;
+        _interactingCharacter = null;
     }
 
 }

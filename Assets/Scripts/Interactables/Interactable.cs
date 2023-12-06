@@ -8,11 +8,13 @@ public class Interactable : MonoBehaviour , IInteractable
     [SerializeField] protected List<Interactable> _requirements;
     [SerializeField] protected Interactable _objectToActivate;
     [SerializeField] protected Animator _animator;
+    private PlayerController _playerController;
 
 
     private List<Renderer>  _renderers;
+    
 
-    protected Characters _currentCharacter;
+    protected Characters _interactingCharacter;
 
     protected bool _requirementsMet;
 
@@ -20,10 +22,22 @@ public class Interactable : MonoBehaviour , IInteractable
     protected bool IsActive { get;set; }
 
     
-    public Characters CurrentCharacter => _currentCharacter;
+    public Characters InteractingCharacter => _interactingCharacter;
+
+    public Characters CurrentCharacter {  get; set; }
+    private void OnEnable()
+    {
+        _playerController.SwitchCharacter += SetCurrentCharacter;
+    }
+
+    private void OnDisable()
+    {
+        _playerController.SwitchCharacter -= SetCurrentCharacter;
+    }
 
     protected  void Awake()
     {
+        _playerController = GameObject.Find("GameController").GetComponent<PlayerController>();
         _renderers = GetComponentsInChildren<Renderer>().ToList();
     }
     public virtual void Interact(Characters character) 
@@ -43,19 +57,29 @@ public class Interactable : MonoBehaviour , IInteractable
         _requirementsMet = true;
         
     }
+
+    private void SetCurrentCharacter(Characters characters)
+    {
+        CurrentCharacter = characters;
+    }
     
 
     public virtual void StopInteract() { }
 
     protected virtual void OnMouseEnter()
     {
-        List<Renderer> renderers = GetComponentsInChildren<Renderer>().ToList();
-        foreach (Renderer renderer in renderers)
-            renderer.materials[1].SetFloat("_Scale", 1.1f);
+        if (CurrentCharacter.Interactable == null)
+        {
+            List<Renderer> renderers = GetComponentsInChildren<Renderer>().ToList();
+            foreach (Renderer renderer in renderers)
+                renderer.materials[1].SetFloat("_Scale", 1.1f);
+        }
+
     }
 
-    protected virtual void OnMouseExit()
+    public virtual void OnMouseExit()
     {
+
         foreach (Renderer renderer in _renderers)
             renderer.materials[1].SetFloat("_Scale", 0f);
     }

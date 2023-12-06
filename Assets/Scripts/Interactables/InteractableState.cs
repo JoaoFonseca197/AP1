@@ -25,9 +25,6 @@ public class InteractableState : Interactable
 
     }
 
-    protected override void OnMouseEnter() { }
-
-    protected override void OnMouseExit() { }
 
 
 }

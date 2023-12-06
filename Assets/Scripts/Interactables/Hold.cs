@@ -14,10 +14,9 @@ public class Hold : Interactable
             IsActive = true;
             _animator.SetBool("IsActive", IsActive);
             _objectToActivate.Interact(character);
-            _playerController.CurrentInteractable = null;
-            _currentCharacter = character;
-            _currentCharacter.NavMeshAgent.isStopped = true;
-            _currentCharacter.Interactable = this;
+            _interactingCharacter = character;
+            _interactingCharacter.NavMeshAgent.isStopped = true;
+            _interactingCharacter.Interactable = this;
         }
     }
 
@@ -26,10 +25,10 @@ public class Hold : Interactable
     {
         IsActive = false;
         _animator.SetBool("IsActive", IsActive);
-        _objectToActivate.Interact(_currentCharacter);
-        _currentCharacter.Interactable = null;
-        _currentCharacter.NavMeshAgent.isStopped = false;
-        _currentCharacter = null;
+        _objectToActivate.Interact(_interactingCharacter);
+        _interactingCharacter.Interactable = null;
+        _interactingCharacter.NavMeshAgent.isStopped = false;
+        _interactingCharacter = null;
     }
 
 }

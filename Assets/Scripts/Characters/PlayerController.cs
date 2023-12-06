@@ -1,8 +1,10 @@
 // Ignore Spelling: Interactable
 
 using Cinemachine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -20,18 +22,11 @@ public class PlayerController: MonoBehaviour
     [SerializeField] private ParticleSystem      _particle;
 
 
-    private IInteractable       _currentInteractable;
-    private IInteractable       _objectToInteract;
-    private Characters          _characterToInteract;
     private Characters          _currentCharacter;
 
 
-    public IInteractable CurrentInteractable
-    {
-        get { return _currentInteractable; }
-        set { _currentInteractable = value; }
-    }
-    
+
+    public  Action<Characters> SwitchCharacter;
 
 
 
@@ -39,7 +34,9 @@ public class PlayerController: MonoBehaviour
 
     private void Awake()
     {
+        
         _currentCharacter = _player;
+        SwitchCharacter.Invoke(_currentCharacter);
         _cineCamera.Follow = _player.transform;
     }
 
@@ -74,7 +71,7 @@ public class PlayerController: MonoBehaviour
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
                 Interactable hitInteractable = hit.collider.GetComponent<Interactable>();
-                if (_currentCharacter.Interactable == null && hitInteractable.CurrentCharacter == null)
+                if (_currentCharacter.Interactable == null && hitInteractable.InteractingCharacter == null)
                 {
                     _currentCharacter.Move(hit.transform.position + hit.normal,hitInteractable, hit.transform.position);
                     //_objectToInteract = hitInteractable;
@@ -108,8 +105,12 @@ public class PlayerController: MonoBehaviour
                 //Sets the camera to track the player character
                 _cineCamera.Follow = _player.transform;
             }
+
+            SwitchCharacter.Invoke(_currentCharacter);
         }
     }
+
+
 
 
 

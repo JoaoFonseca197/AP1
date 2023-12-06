@@ -9,7 +9,7 @@ public class PickUpKey : Interactable
     public override void Interact(Characters character)
     {
 
-        _currentCharacter = character;
+        _interactingCharacter = character;
         Destroy(gameObject);
         //Key State of the chracter that caught it is true and can interact with keyhole
         character.HasKey = true;

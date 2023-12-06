@@ -22,7 +22,7 @@ public class Button : Interactable
     {
         IsActive= false;
         _animator.SetBool("IsActive", IsActive);
-        _objectToActivate.Interact(_currentCharacter);
+        _objectToActivate.Interact(_interactingCharacter);
     }
 
 }
