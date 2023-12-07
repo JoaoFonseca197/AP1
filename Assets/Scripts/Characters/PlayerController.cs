@@ -67,6 +67,11 @@ public class PlayerController: MonoBehaviour
         }
         if (Input.GetButtonDown("Fire2"))
         {
+            if(_currentCharacter.Interactable is BigBox || _currentCharacter.Interactable is SmallBox)
+            {
+                _currentCharacter.Interactable.StopInteract();
+                return;
+            }
             //Checks if hits something
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _interactableMask))
             {
@@ -74,8 +79,6 @@ public class PlayerController: MonoBehaviour
                 if (_currentCharacter.Interactable == null && hitInteractable.InteractingCharacter == null)
                 {
                     _currentCharacter.Move(hit.transform.position + hit.normal,hitInteractable, hit.transform.position);
-                    //_objectToInteract = hitInteractable;
-                    //_characterToInteract = _currentCharacter;
                 }
 
                 if(_currentCharacter.Interactable == hitInteractable)
