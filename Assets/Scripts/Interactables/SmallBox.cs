@@ -32,9 +32,8 @@ public class SmallBox : Interactable
 
     public override void StopInteract()
     {
-        Vector3 distanceToCharacter = _interactingCharacter.transform.forward + _interactingCharacter.transform.position + transform.localPosition;
         transform.parent = null;
-        transform.SetLocalPositionAndRotation(new Vector3(distanceToCharacter.x, transform.localScale.y / 2, distanceToCharacter.z), Quaternion.identity);
+        transform.rotation = Quaternion.identity;
         _navMeshObstacle.enabled = true;
         _interactingCharacter.Interactable = null;
         _interactingCharacter.NavMeshAgent.speed = 10;
