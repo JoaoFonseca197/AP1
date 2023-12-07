@@ -22,12 +22,11 @@ public class SmallBox : Interactable
 
             _interactingCharacter = character;
             transform.SetParent(character.transform, true);
-            transform.SetLocalPositionAndRotation(new Vector3(0, 0, transform.localScale.z + 1f), Quaternion.identity);
+            transform.SetLocalPositionAndRotation(new Vector3(0, 0.5f, transform.localScale.z + 1f), Quaternion.identity);
             _navMeshObstacle.enabled = false;
             _interactingCharacter.Interactable = this;
             _interactingCharacter.NavMeshAgent.speed = 6;
             _interactingCharacter.NavMeshAgent.angularSpeed = 0;
-            _interactingCharacter.transform.rotation = Quaternion.identity;
 
     }
 
