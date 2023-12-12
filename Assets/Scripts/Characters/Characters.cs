@@ -96,7 +96,7 @@ public class Characters : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        print((transform.position - _destiny).magnitude);
+        //print((transform.position - _destiny).magnitude);
         if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.15f && _isMoving)
         {
             //Makes the rotation of the character

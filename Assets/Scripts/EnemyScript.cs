@@ -81,6 +81,8 @@ public class EnemyScript : MonoBehaviour
     /// </summary>
     private void Patrolling()
     {
+
+        print("PAtrolling");
         //If there is no points the enemy will stand in one place
         if (_patrollingPoints.Count == 0)
             return;
@@ -111,6 +113,7 @@ public class EnemyScript : MonoBehaviour
     /// </summary>
     private void Chase()
     {
+        print("Chasing");
         _characterToChase = CheckForClosestCharacter(_charactersToChase);
         _charactersToChase.Clear();
         _navMeshAgent.SetDestination(_characterToChase);
