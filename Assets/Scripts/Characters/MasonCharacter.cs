@@ -8,16 +8,16 @@ using UnityEngine.AI;
 /// </summary>
 public class MasonCharacter : Characters 
 {
-    
+    [SerializeField] private float _maxSoloHigh;
     [SerializeField] private PlayerCharacter _playerCharacter;
 
 
-    public override void Move(Transform transform, Vector3 destiny)
+    public override void Move( Vector3 destiny)
     {
 
             if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y) >= _minHighDistance && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <= _maxHighDistance)
             {
-                if (!transform.GetComponentInParent<BigBox>())
+                if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)<= _maxSoloHigh)
                     _navMeshAgent.Warp(destiny);
                 else
                 {

@@ -11,13 +11,14 @@ public class Characters : MonoBehaviour
     [SerializeField] protected Transform _playerPivot;
     [SerializeField] protected Animator _animator;
 
-    public Action ReachedDestiny;
 
     
     protected Vector3       _destiny;
     protected Vector3       _lookAt;
     protected bool          _isMoving;
     protected Interactable  _InteractableYetToInteract;
+
+    private bool _jump;
 
     public Interactable Interactable { get; set; }
     [field: SerializeField] public bool HasKey { get; set; }
@@ -34,16 +35,22 @@ public class Characters : MonoBehaviour
     /// Called simply when the character moves
     /// </summary>
     /// <param name="destiny"></param>
-    public virtual void Move(Transform transform, Vector3 destiny)
+    public virtual void Move( Vector3 destiny)
     {
 
         if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance && Interactable == null)
         {
+            _navMeshAgent.Move(destiny);
             _navMeshAgent.Warp(destiny);
         }
         else
             _navMeshAgent.SetDestination(destiny);
         
+    }
+
+    private void Jump()
+    {
+
     }
 
 
@@ -107,6 +114,11 @@ public class Characters : MonoBehaviour
             //Invokes this event to alert that his done moving
             Interact(_InteractableYetToInteract);
             _isMoving = false;
+        }
+
+        if(_jump)
+        {
+            Jump();
         }
     }
 

@@ -2318,6 +2318,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 113414394798173561, guid: 2c8f54aecb4933f4fa8f2d920e511883,
         type: 3}
+      propertyPath: _maxSoloHigh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 113414394798173561, guid: 2c8f54aecb4933f4fa8f2d920e511883,
+        type: 3}
       propertyPath: _playerCharacter
       value: 
       objectReference: {fileID: 326280746}
