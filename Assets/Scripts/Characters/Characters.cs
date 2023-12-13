@@ -2,6 +2,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class Characters : MonoBehaviour
 {
@@ -11,14 +12,16 @@ public class Characters : MonoBehaviour
     [SerializeField] protected Transform _playerPivot;
     [SerializeField] protected Animator _animator;
 
-
-    
+    private Action ReachDestiny;
     protected Vector3       _destiny;
+    protected Vector3       _jumpDestiny;
     protected Vector3       _lookAt;
     protected bool          _isMoving;
     protected Interactable  _InteractableYetToInteract;
 
+    private float _timer;
     private bool _jump;
+    private bool _readyToJump;
 
     public Interactable Interactable { get; set; }
     [field: SerializeField] public bool HasKey { get; set; }
@@ -40,17 +43,44 @@ public class Characters : MonoBehaviour
 
         if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance && Interactable == null)
         {
-            _navMeshAgent.Move(destiny);
-            _navMeshAgent.Warp(destiny);
+            _jumpDestiny = destiny;
+            _destiny = new Vector3(destiny.x, 0,destiny.z);
+            _jump = true;
+            _isMoving = true;
+            _navMeshAgent.SetDestination(destiny);
+            
         }
         else
+        {
+            _jump = false;
             _navMeshAgent.SetDestination(destiny);
-        
+
+        }
+
     }
 
+    public virtual void Move(Vector3 destiny, Interactable interactable, Vector3 lookAt)
+    {
+        _destiny = destiny;
+        _navMeshAgent.SetDestination(_destiny);
+        _isMoving = true;
+        _InteractableYetToInteract = interactable;
+        _lookAt = lookAt;
+
+    }
     private void Jump()
     {
-
+       
+        _timer += Time.deltaTime;
+        Vector3 destiny = Vector3.Lerp(_playerPivot.position,_jumpDestiny, _timer);
+        _navMeshAgent.Warp(destiny);
+        if (_timer >1)
+        {
+            _navMeshAgent.updatePosition = true;
+            _jump = false;
+            _readyToJump = false;
+        }
+            
     }
 
 
@@ -76,15 +106,7 @@ public class Characters : MonoBehaviour
     /// </summary>
     /// <param name="destiny">Where the character goes</param>
     /// <param name="lookAt">Position where the character will rotate</param>
-    public virtual void Move(Vector3 destiny, Interactable interactable, Vector3 lookAt)
-    {
-        _destiny = destiny ;
-        _navMeshAgent.SetDestination(_destiny);
-        _isMoving = true;
-        _InteractableYetToInteract = interactable;
-        _lookAt = lookAt;
-       
-    }
+    
 
     protected void Interact(Interactable interactable)
     {
@@ -104,22 +126,33 @@ public class Characters : MonoBehaviour
     protected void FixedUpdate()
     {
         //print((transform.position - _destiny).magnitude);
-        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.15f && _isMoving)
+        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 3f && _isMoving)
         {
+            if(_jump)
+            {
+                _readyToJump = true;
+               
+            }
+                
+
             //Makes the rotation of the character
             _navMeshAgent.updateRotation = false;
             _navMeshAgent.transform.LookAt(_lookAt);
             _navMeshAgent.updateRotation = true;
-
-            //Invokes this event to alert that his done moving
-            Interact(_InteractableYetToInteract);
+            if(_InteractableYetToInteract != null)
+                Interact(_InteractableYetToInteract);
             _isMoving = false;
         }
-
-        if(_jump)
+        if (_readyToJump)
         {
+            _navMeshAgent.updatePosition = false;
             Jump();
         }
+
     }
 
+    protected void nTriggerEnter(Collider other)
+    {
+        
+    }
 }

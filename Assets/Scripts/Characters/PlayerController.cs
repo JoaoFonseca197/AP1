@@ -57,8 +57,7 @@ public class PlayerController: MonoBehaviour
             if (Physics.Raycast(mouseInput, out RaycastHit hit, float.MaxValue, _groundMask))
             {
 
-                _currentCharacter.Move(hit.transform, hit.point);
-                //Instantiate(_particle, hit.point, _particle.transform.rotation);
+                _currentCharacter.Move(hit.point);
                 _particle.Play();
                 _particle.transform.position = hit.point;
 
