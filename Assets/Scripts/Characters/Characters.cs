@@ -151,8 +151,5 @@ public class Characters : MonoBehaviour
 
     }
 
-    protected void nTriggerEnter(Collider other)
-    {
-        
-    }
+   
 }
