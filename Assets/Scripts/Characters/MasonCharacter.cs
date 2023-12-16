@@ -15,22 +15,22 @@ public class MasonCharacter : Characters
     public override void Move( Vector3 destiny)
     {
 
-            if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y) >= _minHighDistance && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <= _maxHighDistance)
-            {
-                if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)<= _maxSoloHigh)
-                    _navMeshAgent.Warp(destiny);
-                else
-                {
-                    if(_playerCharacter.NavMeshAgent.CalculatePath(destiny, new NavMeshPath()))
-                    {
-                        _playerCharacter.NavMeshAgent.SetDestination(destiny);
-                    }
-
-                }
-                    
-            }
+        if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y) >= _minHighDistance && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <= _maxHighDistance)
+        {
+            if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)<= _maxSoloHigh)
+                base.Move(destiny);
             else
-                _navMeshAgent.SetDestination(destiny);
+            {
+                if(_playerCharacter.NavMeshAgent.CalculatePath(destiny, new NavMeshPath()))
+                {
+                    _playerCharacter.NavMeshAgent.SetDestination(destiny);
+                }
+
+            }
+                    
+        }
+        else
+            _navMeshAgent.SetDestination(destiny);
         
     }
 
