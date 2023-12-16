@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 /// <summary>
 /// Class responsible for the Mason character
@@ -15,15 +13,15 @@ public class MasonCharacter : Characters
     public override void Move( Vector3 destiny)
     {
 
-        if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y) >= _minHighDistance && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <= _maxHighDistance)
+        if (Mathf.Abs(destiny.y - _playerPivot.position.y) >= _minHighDistance && Mathf.Abs(destiny.y - _playerPivot.position.y) <= _maxHighDistance)
         {
-            if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)<= _maxSoloHigh)
+            if (Mathf.Abs(destiny.y - _playerPivot.position.y)<= _maxSoloHigh)
                 base.Move(destiny);
             else
             {
-                if(_playerCharacter.NavMeshAgent.CalculatePath(destiny, new NavMeshPath()))
+                if(CheckForHelp(destiny))
                 {
-                    _playerCharacter.NavMeshAgent.SetDestination(destiny);
+                    base.Move(destiny);
                 }
 
             }
@@ -32,6 +30,18 @@ public class MasonCharacter : Characters
         else
             _navMeshAgent.SetDestination(destiny);
         
+    }
+
+    private bool CheckForHelp(Vector3 destiny)
+    {
+        float playerToObjectDif = Vector3.Distance(_playerCharacter.transform.position, transform.position);
+        if (_playerCharacter.Interactable != null) 
+            return false;
+        if(playerToObjectDif > 2f)
+            return false;
+        else
+            return true;
+
     }
 
 }

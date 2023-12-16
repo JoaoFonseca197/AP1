@@ -47,7 +47,7 @@ public class Characters : MonoBehaviour
     public virtual void Move( Vector3 destiny)
     {
         
-        if ((int)Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && (int)Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance && Interactable == null)
+        if (Mathf.Abs(destiny.y - _playerPivot.position.y)>= _minHighDistance  && Mathf.Abs(destiny.y - _playerPivot.position.y) <=_maxHighDistance && Interactable == null)
         {  
             _jump = true;
             _isMoving = true;
@@ -94,7 +94,6 @@ public class Characters : MonoBehaviour
     }
     private void Jump()
     {
-        _navMeshAgent.updatePosition = false;
         _timer += Time.deltaTime;
         Vector3 destiny = Vector3.Lerp(_startJump,_endJump, _timer);
         _navMeshAgent.Warp(destiny);
@@ -152,6 +151,7 @@ public class Characters : MonoBehaviour
 
     protected void FixedUpdate()
     {
+        print(_destiny);
         //print((transform.position - _destiny).magnitude);
         if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.1f && _isMoving)
         {
