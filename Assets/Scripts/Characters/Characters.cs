@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.VisualScripting;
 using Unity.AI.Navigation;
+using TMPro;
 
 public class Characters : MonoBehaviour
 {
@@ -89,6 +90,7 @@ public class Characters : MonoBehaviour
         _navMeshAgent.SetDestination(_destiny);
         _isMoving = true;
         _InteractableYetToInteract = interactable;
+
         _lookAt = lookAt;
 
     }
@@ -151,9 +153,9 @@ public class Characters : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        print(_destiny);
-        //print((transform.position - _destiny).magnitude);
-        if ((transform.position - _destiny).magnitude <= _navMeshAgent.stoppingDistance + 0.1f && _isMoving)
+        Vector2 cPosition = new Vector2(transform.position.x, transform.position.z);
+        Vector2 dPosition = new Vector2(_destiny.x, _destiny.z);
+        if (Vector2.Distance(cPosition,dPosition) <= _navMeshAgent.stoppingDistance + 0.1f && _isMoving)
         {
             if(_jump)
             {
@@ -164,9 +166,10 @@ public class Characters : MonoBehaviour
 
             //Makes the rotation of the character
             _navMeshAgent.updateRotation = false;
-            _navMeshAgent.transform.LookAt(_lookAt);
+            _navMeshAgent.transform.LookAt(_InteractableYetToInteract.transform.position);
             _navMeshAgent.updateRotation = true;
-            if(_InteractableYetToInteract != null)
+
+            if (_InteractableYetToInteract != null)
                 Interact(_InteractableYetToInteract);
             _isMoving = false;
         }

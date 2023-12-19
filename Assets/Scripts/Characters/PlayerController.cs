@@ -77,7 +77,7 @@ public class PlayerController: MonoBehaviour
                 Interactable hitInteractable = hit.collider.GetComponent<Interactable>();
                 if (_currentCharacter.Interactable == null && hitInteractable.InteractingCharacter == null)
                 {
-                    _currentCharacter.Move(hit.transform.position + hit.normal,hitInteractable, hit.transform.position);
+                    _currentCharacter.Move(hit.transform.position + hit.normal *2 ,hitInteractable, hit.transform.position);
                 }
 
                 if(_currentCharacter.Interactable == hitInteractable)
