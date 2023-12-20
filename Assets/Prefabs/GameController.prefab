@@ -54,4 +54,5 @@ MonoBehaviour:
   _interactableMask:
     serializedVersion: 2
     m_Bits: 256
-  _isInPuzzleRoom: 0
+  _particle: {fileID: 854469345964820820, guid: 9e020ccc25145ad4eb68075036aa286b,
+    type: 3}

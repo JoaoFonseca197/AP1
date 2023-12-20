@@ -70,7 +70,8 @@ public class Characters : MonoBehaviour
             _jump = false;
             
             NavMeshPath path = new NavMeshPath();
-            if(_navMeshAgent.CalculatePath(destiny,path))
+            _navMeshAgent.CalculatePath(destiny, path);
+            if (path.status == NavMeshPathStatus.PathPartial)
             {
                 if (Vector2.Distance(cPosition, dPosition) >= _minHorizontalJump && Vector2.Distance(cPosition, dPosition) <= _maxHorizontalJump)
                 {

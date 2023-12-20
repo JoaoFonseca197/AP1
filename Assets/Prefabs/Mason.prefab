@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8028911345949708055}
   - component: {fileID: 5617960682935127046}
   - component: {fileID: 6374656225809297214}
-  - component: {fileID: 6165813396168830357}
   m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6165813396168830357
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876142733492842334}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1101066157406265785
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,8 +189,13 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 7577451776660243481}
   _maxHighDistance: 3
   _minHighDistance: 0.5
+  _minHorizontalJump: 0
+  _maxHorizontalJump: 0
   _playerPivot: {fileID: 4975324339052396752}
   _animator: {fileID: 0}
+  _currentDestiny: {x: 0, y: 0, z: 0}
+  <HasKey>k__BackingField: 0
+  _maxSoloHigh: 0
   _playerCharacter: {fileID: 0}
 --- !u!54 &-2489205467548110784
 Rigidbody:
