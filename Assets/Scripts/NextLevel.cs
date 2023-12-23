@@ -5,7 +5,7 @@ using UnityEngine;
 public class NextLevel : MonoBehaviour
 {
     [SerializeField] private string _sceneToLoad;
-    [SerializeField]private List<Characters> _characters;
+    private List<Characters> _characters;
     private void Awake()
     {
         _characters = new List<Characters>();
