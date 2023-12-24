@@ -419,9 +419,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 5906265536406899725}
-  _maxHighDistance: 3
+  _maxHighDistance: 3.5
   _minHighDistance: 0.5
+  _minHorizontalJump: 0
+  _maxHorizontalJump: 0
   _playerPivot: {fileID: 533769632892855152}
+  _animator: {fileID: 0}
+  _currentDestiny: {x: 0, y: 0, z: 0}
+  <HasKey>k__BackingField: 0
 --- !u!195 &5906265536406899725
 NavMeshAgent:
   m_ObjectHideFlags: 0
