@@ -36,8 +36,12 @@ public class PlayerController: MonoBehaviour
     {
         
         _currentCharacter = _player;
-        SwitchCharacter.Invoke(_currentCharacter);
         _cineCamera.Follow = _player.transform;
+    }
+
+    private void Start()
+    {
+        SwitchCharacter.Invoke(_currentCharacter);
     }
 
     // Update is called once per frame

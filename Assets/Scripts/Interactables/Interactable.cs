@@ -68,7 +68,7 @@ public class Interactable : MonoBehaviour , IInteractable
 
     protected virtual void OnMouseEnter()
     {
-        if (CurrentCharacter.Interactable == null)
+        if(CurrentCharacter.Interactable == null)
         {
             List<Renderer> renderers = GetComponentsInChildren<Renderer>().ToList();
             foreach (Renderer renderer in renderers)
