@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-public class BigPressurePlate : MonoBehaviour 
+public class BigPressurePlate : MonoBehaviour
 {
-    [SerializeField] private Animator _objectToActivate;
+    [SerializeField] private Animator[] _objectToActivate;
     [SerializeField] private Animator _animator;
     public Characters CurrentCharacter { get; }
 
@@ -26,7 +26,7 @@ public class BigPressurePlate : MonoBehaviour
             if (_currentObjectActivating != null )
             {
                 _animator.SetBool("IsActive", true);
-                _objectToActivate.SetBool("IsActive", true);
+                
                 _isActive = true;
             }
 
@@ -39,7 +39,8 @@ public class BigPressurePlate : MonoBehaviour
         if(_isActive && other.gameObject == _currentObjectActivating) 
         {
             _animator.SetBool("IsActive", false);
-            _objectToActivate.SetBool("IsActive", false);
+            foreach (Animator animator in _objectToActivate)
+                animator.SetBool("IsActive", true);
             _isActive = false;
             _currentObjectActivating = null;
         }
